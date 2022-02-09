@@ -16,3 +16,4 @@ jobs:
       add-gradle-properties: true
     secrets:
       gradle-properties: "user=${{ secrets.NEXUS_USER }}\npassword=${{ secrets.NEXUS_PASSWORD }}"
+      github-token: ${{ secrets.GITHUB_TOKEN }}
