@@ -7,7 +7,7 @@ on:
 
 jobs:
   java-release:
-    if: startsWith( github.event.commits[0].message, "[ci release]" )
+    if: startsWith( github.event.commits[0].message, '[ci release]' )
     uses: DaniFoldi/workflows/.github/workflows/gradle.yml@main
     with:
       steps: "clean build publish"
