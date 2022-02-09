@@ -34,6 +34,10 @@ test {
     useJUnitPlatform()
 }
 
+tasks.withType(PublishToMavenRepository) { task ->
+    dependsOn("build")
+}
+
 publishing {
     publications {
         maven(MavenPublication) {
