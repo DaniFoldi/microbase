@@ -1,5 +1,6 @@
 package com.danifoldi.microbase.spigot;
 
+import com.danifoldi.microbase.BaseMessage;
 import com.danifoldi.microbase.BasePlatform;
 import com.danifoldi.microbase.BasePlayer;
 import com.danifoldi.microbase.BasePlugin;
@@ -11,6 +12,10 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
 public class SpigotPlatform {
+    public static BaseMessage baseMessage() {
+        return new SpigotBaseMessage();
+    }
+
     public static BasePlatform toBasePlatform(Server server) {
         return new SpigotBasePlatform(server);
     }

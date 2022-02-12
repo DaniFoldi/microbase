@@ -1,5 +1,6 @@
 package com.danifoldi.microbase.waterfall;
 
+import com.danifoldi.microbase.BaseMessage;
 import com.danifoldi.microbase.BasePlatform;
 import com.danifoldi.microbase.BasePlayer;
 import com.danifoldi.microbase.BasePlugin;
@@ -12,6 +13,10 @@ import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.plugin.Plugin;
 
 public class WaterfallPlatform {
+    public static BaseMessage baseMessage() {
+        return new WaterfallBaseMessage();
+    }
+
     public static BasePlatform toBasePlatform(ProxyServer server) {
         return new WaterfallBasePlatform(server);
     }

@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
+import java.util.function.Function;
 import java.util.logging.Logger;
 
 @SuppressWarnings("unused")
@@ -39,13 +40,15 @@ public class Microbase {
     private static Object plugin;
     private static Path datafolder;
     private static ExecutorService threadPool;
+    private static Function<String, String> messageProvider;
     private static final Map<String, Object> commandCache = new ConcurrentHashMap<>();
 
-    public static void setup(Object platform, Object plugin, Path datafolder, ExecutorService threadPool) {
+    public static void setup(Object platform, Object plugin, Path datafolder, ExecutorService threadPool, Function<String, String> messageProvider) {
         Microbase.platform = platform;
         Microbase.plugin = plugin;
         Microbase.datafolder = datafolder;
         Microbase.threadPool = threadPool;
+        Microbase.messageProvider = messageProvider;
     }
 
     public static Object getPlatform() {
@@ -64,6 +67,10 @@ public class Microbase {
         return threadPool;
     }
 
+    public static String provideMessage(String key) {
+        return messageProvider.apply(key);
+    }
+
     public static<T> T addCommand(List<String> aliases, T command) {
         aliases.forEach(a -> commandCache.put(a, command));
         return command;
@@ -71,6 +78,17 @@ public class Microbase {
 
     public static Object removeCommand(String name) {
         return commandCache.remove(name);
+    }
+
+    public static BaseMessage baseMessage() {
+        return switch (platformType) {
+            case BUNGEECORD -> BungeecordPlatform.baseMessage();
+            case PAPER -> PaperPlatform.baseMessage();
+            case SPIGOT -> SpigotPlatform.baseMessage();
+            case VELOCITY -> VelocityPlatform.baseMessage();
+            case WATERFALL -> WaterfallPlatform.baseMessage();
+            default -> null;
+        };
     }
 
     public static<T> BasePlatform toBasePlatform(T pl) {

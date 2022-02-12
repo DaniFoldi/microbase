@@ -1,5 +1,6 @@
 package com.danifoldi.microbase.spigot;
 
+import com.danifoldi.microbase.BaseMessage;
 import com.danifoldi.microbase.BaseSender;
 import net.kyori.adventure.text.Component;
 import org.bukkit.command.CommandSender;
@@ -23,6 +24,13 @@ public class SpigotBaseSender implements BaseSender {
     @Override
     public void send(String message) {
         sender.sendMessage(Component.text(message));
+    }
+
+    @Override
+    public void send(BaseMessage message) {
+        if (message instanceof SpigotBaseMessage cMessage) {
+            sender.sendMessage(cMessage.convert());
+        }
     }
 
     @Override

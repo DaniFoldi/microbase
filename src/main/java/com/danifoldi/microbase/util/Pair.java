@@ -6,8 +6,13 @@ import java.util.Objects;
 
 public record Pair<A, B>(A a, B b) {
 
-    public static <A, B> @NotNull Pair<A, B> of(A a, B b) {
+    public static<A, B> @NotNull Pair<A, B> of(A a, B b) {
         return new Pair<>(a, b);
+    }
+
+    @SafeVarargs
+    public static<A> @NotNull Pair<A, A> of(A... a) {
+        return new Pair<>(a[0], a[1]);
     }
 
     @Override

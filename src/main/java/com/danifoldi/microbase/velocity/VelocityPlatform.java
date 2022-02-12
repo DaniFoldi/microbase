@@ -1,5 +1,6 @@
 package com.danifoldi.microbase.velocity;
 
+import com.danifoldi.microbase.BaseMessage;
 import com.danifoldi.microbase.BasePlatform;
 import com.danifoldi.microbase.BasePlayer;
 import com.danifoldi.microbase.BasePlugin;
@@ -12,6 +13,10 @@ import com.velocitypowered.api.proxy.ProxyServer;
 import com.velocitypowered.api.proxy.server.RegisteredServer;
 
 public class VelocityPlatform {
+    public static BaseMessage baseMessage() {
+        return new VelocityBaseMessage();
+    }
+
     public static BasePlatform toBasePlatform(ProxyServer server) {
         return new VelocityBasePlatform(server);
     }

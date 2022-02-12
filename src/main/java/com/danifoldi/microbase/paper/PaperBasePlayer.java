@@ -2,6 +2,7 @@ package com.danifoldi.microbase.paper;
 
 import com.danifoldi.microbase.BasePlayer;
 import com.danifoldi.microbase.BaseServer;
+import com.danifoldi.microbase.Microbase;
 import com.danifoldi.microbase.depend.PremiumVanishDepend;
 import com.danifoldi.microbase.depend.ViaVersionDepend;
 import net.kyori.adventure.text.Component;
@@ -12,7 +13,6 @@ import org.bukkit.entity.Player;
 
 import java.time.Duration;
 import java.time.temporal.ChronoUnit;
-import java.util.logging.Logger;
 
 @SuppressWarnings("ClassCanBeRecord")
 public class PaperBasePlayer extends PaperBaseSender implements BasePlayer {
@@ -60,7 +60,7 @@ public class PaperBasePlayer extends PaperBaseSender implements BasePlayer {
 
     @Override
     public void connect(BaseServer server) {
-        Logger.getLogger("MicroBase").warning("connect does nothing on your platform");
+        Microbase.logger.warning("connect does nothing on your platform");
     }
 
     @Override

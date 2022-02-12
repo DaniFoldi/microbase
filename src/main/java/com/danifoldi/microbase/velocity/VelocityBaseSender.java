@@ -1,5 +1,6 @@
 package com.danifoldi.microbase.velocity;
 
+import com.danifoldi.microbase.BaseMessage;
 import com.danifoldi.microbase.BaseSender;
 import com.velocitypowered.api.command.CommandSource;
 import com.velocitypowered.api.proxy.Player;
@@ -23,6 +24,13 @@ public class VelocityBaseSender implements BaseSender {
     @Override
     public void send(String message) {
         sender.sendMessage(Component.text(message));
+    }
+
+    @Override
+    public void send(BaseMessage message) {
+        if (message instanceof VelocityBaseMessage cMessage) {
+            sender.sendMessage(cMessage.convert());
+        }
     }
 
     @Override

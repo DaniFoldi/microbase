@@ -1,5 +1,6 @@
 package com.danifoldi.microbase.waterfall;
 
+import com.danifoldi.microbase.BaseMessage;
 import com.danifoldi.microbase.BaseSender;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -23,6 +24,13 @@ public class WaterfallBaseSender implements BaseSender {
     @Override
     public void send(String message) {
         sender.sendMessage(new TextComponent(message));
+    }
+
+    @Override
+    public void send(BaseMessage message) {
+        if (message instanceof WaterfallBaseMessage cMessage) {
+            sender.sendMessage(cMessage.convert());
+        }
     }
 
     @Override
