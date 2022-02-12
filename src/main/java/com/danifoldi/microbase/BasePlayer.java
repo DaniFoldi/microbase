@@ -9,8 +9,10 @@ public interface BasePlayer extends BaseSender {
 
     void actionbar(String message);
     void chat(String message);
+
     void connect(BaseServer server);
     BaseServer connectedTo();
+
     void title(String message, int fadeIn, int stay, int fadeOut);
     void subtitle(String message, int fadeIn, int stay, int fadeOut);
 }

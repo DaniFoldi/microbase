@@ -11,7 +11,6 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.title.Title;
 import net.kyori.adventure.title.TitlePart;
 
-import java.lang.reflect.Proxy;
 import java.time.Duration;
 import java.time.temporal.ChronoUnit;
 import java.util.Locale;

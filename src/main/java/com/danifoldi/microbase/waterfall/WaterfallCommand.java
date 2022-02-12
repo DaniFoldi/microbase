@@ -1,7 +1,6 @@
 package com.danifoldi.microbase.waterfall;
 
 import com.danifoldi.microbase.BaseSender;
-import com.danifoldi.microbase.BaseServer;
 import com.danifoldi.microbase.Microbase;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
