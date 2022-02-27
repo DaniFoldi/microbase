@@ -11,6 +11,7 @@ import com.danifoldi.microbase.waterfall.WaterfallPlatform;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.function.Function;
@@ -78,6 +79,10 @@ public class Microbase {
 
     public static Object removeCommand(String name) {
         return commandCache.remove(name);
+    }
+
+    public static Set<String> registeredCommands() {
+        return commandCache.keySet();
     }
 
     public static BaseMessage baseMessage() {
