@@ -23,4 +23,9 @@ public class VelocityBaseServer implements BaseServer {
     public Collection<BasePlayer> players() {
         return server.getPlayersConnected().stream().map(VelocityBasePlayer::new).map(p -> (BasePlayer)p).toList();
     }
+
+    @Override
+    public Object raw() {
+        return server;
+    }
 }

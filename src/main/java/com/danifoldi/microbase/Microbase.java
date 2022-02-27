@@ -51,12 +51,12 @@ public class Microbase {
         Microbase.messageProvider = messageProvider;
     }
 
-    public static Object getPlatform() {
-        return platform;
+    public static BasePlatform getPlatform() {
+        return Microbase.toBasePlatform(platform);
     }
 
-    public static Object getPlugin() {
-        return plugin;
+    public static BasePlugin getPlugin() {
+        return Microbase.toBasePlugin(plugin);
     }
 
     public static Path getDatafolder() {

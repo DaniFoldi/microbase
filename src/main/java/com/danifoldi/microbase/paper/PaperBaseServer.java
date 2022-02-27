@@ -23,4 +23,9 @@ public class PaperBaseServer implements BaseServer {
     public Collection<BasePlayer> players() {
         return server.getOnlinePlayers().stream().map(PaperBasePlayer::new).map(p -> (BasePlayer)p).toList();
     }
+
+    @Override
+    public Object raw() {
+        return server;
+    }
 }

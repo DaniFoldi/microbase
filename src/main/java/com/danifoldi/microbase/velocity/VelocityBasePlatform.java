@@ -84,4 +84,9 @@ public class VelocityBasePlatform implements BasePlatform {
     public Map<String, BaseServer> getServers() {
         return server.getAllServers().stream().collect(Collectors.toMap(e -> e.getServerInfo().getName(), VelocityBaseServer::new));
     }
+
+    @Override
+    public Object raw() {
+        return server;
+    }
 }

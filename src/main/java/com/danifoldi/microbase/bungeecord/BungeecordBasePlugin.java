@@ -48,4 +48,9 @@ public class BungeecordBasePlugin implements BasePlugin {
     public List<String> softDependencies() {
         return plugin.getDescription().getSoftDepends().stream().toList();
     }
+
+    @Override
+    public Object raw() {
+        return plugin;
+    }
 }

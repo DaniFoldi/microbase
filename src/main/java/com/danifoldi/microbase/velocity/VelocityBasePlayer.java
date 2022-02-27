@@ -47,7 +47,7 @@ public class VelocityBasePlayer extends VelocityBaseSender implements BasePlayer
 
     @Override
     public void run(String command) {
-        ((ProxyServer)Microbase.getPlatform()).getCommandManager().executeAsync(player, command);
+        ((ProxyServer)Microbase.getPlatform().raw()).getCommandManager().executeAsync(player, command);
     }
 
     @Override
@@ -62,7 +62,7 @@ public class VelocityBasePlayer extends VelocityBaseSender implements BasePlayer
 
     @Override
     public void connect(BaseServer server) {
-        player.createConnectionRequest(((ProxyServer)Microbase.getPlatform()).getServer(server.name()).orElse(null)).fireAndForget();
+        player.createConnectionRequest(((ProxyServer)Microbase.getPlatform().raw()).getServer(server.name()).orElse(null)).fireAndForget();
     }
 
     @Override

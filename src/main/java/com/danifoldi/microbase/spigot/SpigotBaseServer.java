@@ -23,4 +23,9 @@ public class SpigotBaseServer implements BaseServer {
     public Collection<BasePlayer> players() {
         return server.getOnlinePlayers().stream().map(SpigotBasePlayer::new).map(p -> (BasePlayer)p).toList();
     }
+
+    @Override
+    public Object raw() {
+        return server;
+    }
 }

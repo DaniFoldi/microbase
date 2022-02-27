@@ -48,4 +48,9 @@ public class VelocityBasePlugin implements BasePlugin {
     public List<String> softDependencies() {
         return plugin.getDescription().getDependencies().stream().filter(PluginDependency::isOptional).map(PluginDependency::getId).toList();
     }
+
+    @Override
+    public Object raw() {
+        return plugin;
+    }
 }

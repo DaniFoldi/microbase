@@ -58,12 +58,12 @@ public class BungeecordBasePlatform implements BasePlatform {
 
     @Override
     public void registerCommand(List<String> commandAliases, BiConsumer<BaseSender, String> dispatch, BiFunction<BaseSender, String, Collection<String>> suggest) {
-        server.getPluginManager().registerCommand((Plugin) Microbase.getPlugin(), Microbase.addCommand(commandAliases, new BungeecordCommand(commandAliases, dispatch, suggest)));
+        server.getPluginManager().registerCommand((Plugin) Microbase.getPlugin().raw(), Microbase.addCommand(commandAliases, new BungeecordCommand(commandAliases, dispatch, suggest)));
     }
 
     @Override
     public void registerCommand(List<String> commandAliases, String permission, BiConsumer<BaseSender, String> dispatch, BiFunction<BaseSender, String, Collection<String>> suggest) {
-        server.getPluginManager().registerCommand((Plugin)Microbase.getPlugin(), new BungeecordCommand(commandAliases, permission, dispatch, suggest));
+        server.getPluginManager().registerCommand((Plugin)Microbase.getPlugin().raw(), new BungeecordCommand(commandAliases, permission, dispatch, suggest));
     }
 
     @Override
@@ -84,5 +84,10 @@ public class BungeecordBasePlatform implements BasePlatform {
     @Override
     public Map<String, BaseServer> getServers() {
         return Map.copyOf(server.getServers()).entrySet().stream().collect(Collectors.toMap(Map.Entry::getKey, e -> new BungeecordBaseServer(e.getValue())));
+    }
+
+    @Override
+    public Object raw() {
+        return server;
     }
 }

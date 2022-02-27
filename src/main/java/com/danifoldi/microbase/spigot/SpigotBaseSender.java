@@ -55,4 +55,9 @@ public class SpigotBaseSender implements BaseSender {
         }
         return UUID.fromString("ffffffff-ffff-ffff-ffff-ffffffffffff");
     }
+
+    @Override
+    public Object raw() {
+        return sender;
+    }
 }

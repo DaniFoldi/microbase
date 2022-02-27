@@ -58,12 +58,12 @@ public class WaterfallBasePlatform implements BasePlatform {
 
     @Override
     public void registerCommand(List<String> commandAliases, BiConsumer<BaseSender, String> dispatch, BiFunction<BaseSender, String, Collection<String>> suggest) {
-        server.getPluginManager().registerCommand((Plugin)Microbase.getPlugin(), Microbase.addCommand(commandAliases, new WaterfallCommand(commandAliases, dispatch, suggest)));
+        server.getPluginManager().registerCommand((Plugin)Microbase.getPlugin().raw(), Microbase.addCommand(commandAliases, new WaterfallCommand(commandAliases, dispatch, suggest)));
     }
 
     @Override
     public void registerCommand(List<String> commandAliases, String permission, BiConsumer<BaseSender, String> dispatch, BiFunction<BaseSender, String, Collection<String>> suggest) {
-        server.getPluginManager().registerCommand((Plugin)Microbase.getPlugin(), new WaterfallCommand(commandAliases, permission, dispatch, suggest));
+        server.getPluginManager().registerCommand((Plugin)Microbase.getPlugin().raw(), new WaterfallCommand(commandAliases, permission, dispatch, suggest));
     }
 
     @Override
@@ -84,5 +84,10 @@ public class WaterfallBasePlatform implements BasePlatform {
     @Override
     public Map<String, BaseServer> getServers() {
         return server.getServersCopy().entrySet().stream().collect(Collectors.toMap(Map.Entry::getKey, e -> new WaterfallBaseServer(e.getValue())));
+    }
+
+    @Override
+    public Object raw() {
+        return server;
     }
 }

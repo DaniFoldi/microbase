@@ -63,11 +63,11 @@ public class PaperBasePlatform implements BasePlatform {
     public void registerCommand(List<String> commandAliases, BiConsumer<BaseSender, String> dispatch, BiFunction<BaseSender, String, Collection<String>> suggest) {
         try {
             //noinspection JavaReflectionInvocation
-            PluginCommand command = PaperCommand.PLUGIN_COMMAND_CONSTRUCTOR.newInstance(commandAliases.stream().findFirst().orElseThrow(), Microbase.getPlugin());
+            PluginCommand command = PaperCommand.PLUGIN_COMMAND_CONSTRUCTOR.newInstance(commandAliases.stream().findFirst().orElseThrow(), Microbase.getPlugin().raw());
             command.setExecutor(Microbase.addCommand(commandAliases, new PaperCommand(dispatch, suggest)));
             command.setAliases(commandAliases.stream().skip(1).toList());
             commandAliases.forEach(a -> PaperCommand.KNOWN_COMMANDS.put(a, command));
-            Bukkit.getPluginManager().registerEvents((Listener)command.getExecutor(), (Plugin)Microbase.getPlugin());
+            Bukkit.getPluginManager().registerEvents((Listener)command.getExecutor(), (Plugin)Microbase.getPlugin().raw());
         } catch (ReflectiveOperationException e) {
             Microbase.logger.warning("Failed to register command");
             e.printStackTrace();
@@ -78,12 +78,12 @@ public class PaperBasePlatform implements BasePlatform {
     public void registerCommand(List<String> commandAliases, String permission, BiConsumer<BaseSender, String> dispatch, BiFunction<BaseSender, String, Collection<String>> suggest) {
         try {
             //noinspection JavaReflectionInvocation
-            PluginCommand command = PaperCommand.PLUGIN_COMMAND_CONSTRUCTOR.newInstance(commandAliases.stream().findFirst().orElseThrow(), Microbase.getPlugin());
+            PluginCommand command = PaperCommand.PLUGIN_COMMAND_CONSTRUCTOR.newInstance(commandAliases.stream().findFirst().orElseThrow(), Microbase.getPlugin().raw());
             command.setExecutor(Microbase.addCommand(commandAliases, new PaperCommand(dispatch, suggest)));
             command.setPermission(permission);
             command.setAliases(commandAliases.stream().skip(1).toList());
             commandAliases.forEach(a -> PaperCommand.KNOWN_COMMANDS.put(a, command));
-            Bukkit.getPluginManager().registerEvents((Listener)command.getExecutor(), (Plugin)Microbase.getPlugin());
+            Bukkit.getPluginManager().registerEvents((Listener)command.getExecutor(), (Plugin)Microbase.getPlugin().raw());
         } catch (ReflectiveOperationException e) {
             Microbase.logger.warning("Failed to register command");
             e.printStackTrace();
@@ -109,5 +109,10 @@ public class PaperBasePlatform implements BasePlatform {
     @Override
     public Map<String, BaseServer> getServers() {
         return Map.of(server.getName(), new PaperBaseServer(server));
+    }
+
+    @Override
+    public Object raw() {
+        return null;
     }
 }

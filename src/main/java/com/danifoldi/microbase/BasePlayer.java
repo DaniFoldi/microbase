@@ -15,4 +15,6 @@ public interface BasePlayer extends BaseSender {
 
     void title(String message, int fadeIn, int stay, int fadeOut);
     void subtitle(String message, int fadeIn, int stay, int fadeOut);
+
+    Object raw();
 }

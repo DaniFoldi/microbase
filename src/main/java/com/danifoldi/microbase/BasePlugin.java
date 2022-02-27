@@ -7,7 +7,10 @@ public interface BasePlugin {
     String description();
     String main();
     String version();
+
     List<String> authors();
     List<String> dependencies();
     List<String> softDependencies();
+
+    Object raw();
 }

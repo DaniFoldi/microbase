@@ -20,4 +20,6 @@ public interface BasePlatform {
     void runConsoleCommand(String command);
     List<BasePlugin> getPlugins();
     Map<String, BaseServer> getServers();
+
+    Object raw();
 }

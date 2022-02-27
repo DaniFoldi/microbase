@@ -14,4 +14,6 @@ public interface BaseSender {
     String displayName();
     String name();
     UUID uniqueId();
+
+    Object raw();
 }

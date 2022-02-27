@@ -23,4 +23,9 @@ public class BungeecordBaseServer implements BaseServer {
     public Collection<BasePlayer> players() {
         return server.getPlayers().stream().map(BungeecordBasePlayer::new).map(p -> (BasePlayer)p).toList();
     }
+
+    @Override
+    public Object raw() {
+        return server;
+    }
 }

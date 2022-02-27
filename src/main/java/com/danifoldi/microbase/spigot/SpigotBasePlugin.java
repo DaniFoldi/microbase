@@ -47,4 +47,9 @@ public class SpigotBasePlugin implements BasePlugin {
     public List<String> softDependencies() {
         return plugin.getDescription().getSoftDepend();
     }
+
+    @Override
+    public Object raw() {
+        return plugin;
+    }
 }
