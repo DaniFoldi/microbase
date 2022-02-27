@@ -8,11 +8,10 @@ on:
 jobs:
   java-release:
     # cast to string by joining because startsWith only works with string
-    if: contains( join( github.event.commits.*.message, '' ), '[ci release]' )
+    if: contains( join( github.event.commits.*.message, ', ' ), '[ci release]' )
     uses: DaniFoldi/workflows/.github/workflows/gradle.yml@main
     with:
       steps: "clean build publish"
-      java-version: 16
       github-release-files: "build/libs/*.jar"
       add-gradle-properties: true
     secrets:
