@@ -34,6 +34,11 @@ public class PaperBaseSender implements BaseSender {
     }
 
     @Override
+    public void send(Component message) {
+        sender.sendMessage(message);
+    }
+
+    @Override
     public String displayName() {
         return sender.getName();
     }

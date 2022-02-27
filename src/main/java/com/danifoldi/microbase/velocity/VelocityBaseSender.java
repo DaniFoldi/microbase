@@ -34,6 +34,11 @@ public class VelocityBaseSender implements BaseSender {
     }
 
     @Override
+    public void send(Component message) {
+        sender.sendMessage(message);
+    }
+
+    @Override
     public String displayName() {
         if (sender instanceof Player player) {
             return player.getUsername();

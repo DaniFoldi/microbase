@@ -2,6 +2,8 @@ package com.danifoldi.microbase.bungeecord;
 
 import com.danifoldi.microbase.BaseMessage;
 import com.danifoldi.microbase.BaseSender;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.serializer.bungeecord.BungeeComponentSerializer;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
@@ -31,6 +33,11 @@ public class BungeecordBaseSender implements BaseSender {
         if (message instanceof BungeecordBaseMessage cMessage) {
             sender.sendMessage(cMessage.convert());
         }
+    }
+
+    @Override
+    public void send(Component message) {
+        sender.sendMessage(BungeeComponentSerializer.get().serialize(message));
     }
 
     @Override
