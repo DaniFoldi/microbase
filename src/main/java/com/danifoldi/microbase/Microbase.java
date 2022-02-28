@@ -23,7 +23,7 @@ public class Microbase {
     public static final Logger logger = Logger.getLogger("Microbase");
     public static final MicrobasePlatformType platformType;
     private static final List<Pair<String, MicrobasePlatformType>> knownPlatforms = List.of(
-            Pair.of("com.velocitypowered.proxy.ProxyServer", MicrobasePlatformType.VELOCITY),
+            Pair.of("com.velocitypowered.api.proxy.ProxyServer", MicrobasePlatformType.VELOCITY),
             Pair.of("io.github.waterfallmc.waterfall.event.ConnectionInitEvent", MicrobasePlatformType.WATERFALL),
             Pair.of("net.md_5.bungee.BungeeCord", MicrobasePlatformType.BUNGEECORD),
             Pair.of("io.papermc.paper.event.block.TargetHitEvent", MicrobasePlatformType.PAPER),
