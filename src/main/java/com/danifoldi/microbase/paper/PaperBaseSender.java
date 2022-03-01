@@ -3,6 +3,7 @@ package com.danifoldi.microbase.paper;
 import com.danifoldi.microbase.BaseMessage;
 import com.danifoldi.microbase.BaseSender;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -23,7 +24,7 @@ public class PaperBaseSender implements BaseSender {
 
     @Override
     public void send(String message) {
-        sender.sendMessage(Component.text(message));
+        sender.sendMessage(LegacyComponentSerializer.legacyAmpersand().deserialize(message));
     }
 
     @Override

@@ -5,6 +5,7 @@ import com.danifoldi.microbase.BaseSender;
 import com.velocitypowered.api.command.CommandSource;
 import com.velocitypowered.api.proxy.Player;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 
 import java.util.UUID;
 
@@ -23,7 +24,7 @@ public class VelocityBaseSender implements BaseSender {
 
     @Override
     public void send(String message) {
-        sender.sendMessage(Component.text(message));
+        sender.sendMessage(LegacyComponentSerializer.legacyAmpersand().deserialize(message));
     }
 
     @Override

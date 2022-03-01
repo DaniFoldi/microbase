@@ -2,10 +2,10 @@ package com.danifoldi.microbase.bungeecord;
 
 import com.danifoldi.microbase.BaseMessage;
 import com.danifoldi.microbase.BaseSender;
+import net.kyori.adventure.platform.bungeecord.BungeeAudiences;
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.serializer.bungeecord.BungeeComponentSerializer;
+import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import net.md_5.bungee.api.CommandSender;
-import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 
 import java.util.UUID;
@@ -13,9 +13,11 @@ import java.util.UUID;
 @SuppressWarnings("ClassCanBeRecord")
 public class BungeecordBaseSender implements BaseSender {
     private final CommandSender sender;
+    private final BungeeAudiences audience;
 
-    BungeecordBaseSender(CommandSender sender) {
+    BungeecordBaseSender(CommandSender sender, BungeeAudiences audience) {
         this.sender = sender;
+        this.audience = audience;
     }
 
     @Override
@@ -25,7 +27,7 @@ public class BungeecordBaseSender implements BaseSender {
 
     @Override
     public void send(String message) {
-        sender.sendMessage(new TextComponent(message));
+        send(LegacyComponentSerializer.legacySection().deserialize(message));
     }
 
     @Override
@@ -37,7 +39,7 @@ public class BungeecordBaseSender implements BaseSender {
 
     @Override
     public void send(Component message) {
-        sender.sendMessage(BungeeComponentSerializer.get().serialize(message));
+        audience.sender(sender).sendMessage(message);
     }
 
     @Override

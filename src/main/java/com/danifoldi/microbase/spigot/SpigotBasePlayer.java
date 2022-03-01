@@ -6,6 +6,7 @@ import com.danifoldi.microbase.BaseServer;
 import com.danifoldi.microbase.Microbase;
 import com.danifoldi.microbase.depend.PremiumVanishDepend;
 import com.danifoldi.microbase.depend.ViaVersionDepend;
+import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -13,10 +14,12 @@ import org.bukkit.entity.Player;
 @SuppressWarnings("ClassCanBeRecord")
 public class SpigotBasePlayer extends SpigotBaseSender implements BasePlayer {
     private final Player player;
+    private final BukkitAudiences audience;
 
-    SpigotBasePlayer(Player player) {
-        super(player);
+    SpigotBasePlayer(Player player, BukkitAudiences audience) {
+        super(player, audience);
         this.player = player;
+        this.audience = audience;
     }
 
     @Override
@@ -61,7 +64,7 @@ public class SpigotBasePlayer extends SpigotBaseSender implements BasePlayer {
 
     @Override
     public BaseServer connectedTo() {
-        return new SpigotBaseServer(Bukkit.getServer());
+        return new SpigotBaseServer(Bukkit.getServer(), audience);
     }
 
     @Override

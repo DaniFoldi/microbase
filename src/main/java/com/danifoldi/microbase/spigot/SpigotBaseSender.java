@@ -2,7 +2,9 @@ package com.danifoldi.microbase.spigot;
 
 import com.danifoldi.microbase.BaseMessage;
 import com.danifoldi.microbase.BaseSender;
+import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -11,9 +13,11 @@ import java.util.UUID;
 @SuppressWarnings("ClassCanBeRecord")
 public class SpigotBaseSender implements BaseSender {
     private final CommandSender sender;
+    private final BukkitAudiences audience;
 
-    SpigotBaseSender(CommandSender sender) {
+    SpigotBaseSender(CommandSender sender, BukkitAudiences audience) {
         this.sender = sender;
+        this.audience = audience;
     }
 
     @Override
@@ -23,7 +27,7 @@ public class SpigotBaseSender implements BaseSender {
 
     @Override
     public void send(String message) {
-        sender.sendMessage(Component.text(message));
+        send(LegacyComponentSerializer.legacySection().deserialize(message));
     }
 
     @Override
@@ -35,7 +39,7 @@ public class SpigotBaseSender implements BaseSender {
 
     @Override
     public void send(Component message) {
-        sender.sendMessage(message);
+        audience.sender(sender).sendMessage(message);
     }
 
     @Override

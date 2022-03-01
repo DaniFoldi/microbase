@@ -6,6 +6,8 @@ import com.danifoldi.microbase.BasePlugin;
 import com.danifoldi.microbase.BaseSender;
 import com.danifoldi.microbase.BaseServer;
 import com.danifoldi.microbase.Microbase;
+import net.kyori.adventure.platform.bukkit.BukkitAudiences;
+import net.kyori.adventure.platform.bungeecord.BungeeAudiences;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.plugin.Command;
 import net.md_5.bungee.api.plugin.Plugin;
@@ -21,24 +23,26 @@ import java.util.stream.Collectors;
 @SuppressWarnings("ClassCanBeRecord")
 public class BungeecordBasePlatform implements BasePlatform {
     private final ProxyServer server;
+    private final BungeeAudiences audience;
 
-    BungeecordBasePlatform(ProxyServer server) {
+    BungeecordBasePlatform(ProxyServer server, BungeeAudiences audience) {
         this.server = server;
+        this.audience = audience;
     }
 
     @Override
     public BasePlayer getPlayer(UUID uuid) {
-        return new BungeecordBasePlayer(server.getPlayer(uuid));
+        return new BungeecordBasePlayer(server.getPlayer(uuid), audience);
     }
 
     @Override
     public BasePlayer getPlayer(String name) {
-        return new BungeecordBasePlayer(server.getPlayer(name));
+        return new BungeecordBasePlayer(server.getPlayer(name), audience);
     }
 
     @Override
     public List<BasePlayer> getPlayers() {
-        return server.getPlayers().stream().map(BungeecordBasePlayer::new).map(p -> (BasePlayer)p).toList();
+        return server.getPlayers().stream().map(p -> new BungeecordBasePlayer(p, audience)).map(p -> (BasePlayer)p).toList();
     }
 
     @Override
@@ -83,7 +87,7 @@ public class BungeecordBasePlatform implements BasePlatform {
 
     @Override
     public Map<String, BaseServer> getServers() {
-        return Map.copyOf(server.getServers()).entrySet().stream().collect(Collectors.toMap(Map.Entry::getKey, e -> new BungeecordBaseServer(e.getValue())));
+        return Map.copyOf(server.getServers()).entrySet().stream().collect(Collectors.toMap(Map.Entry::getKey, e -> new BungeecordBaseServer(e.getValue(), audience)));
     }
 
     @Override

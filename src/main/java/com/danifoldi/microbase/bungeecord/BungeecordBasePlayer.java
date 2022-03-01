@@ -3,6 +3,7 @@ package com.danifoldi.microbase.bungeecord;
 import com.danifoldi.microbase.BasePlayer;
 import com.danifoldi.microbase.BaseServer;
 import com.danifoldi.microbase.depend.PremiumVanishDepend;
+import net.kyori.adventure.platform.bungeecord.BungeeAudiences;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -11,10 +12,12 @@ import net.md_5.bungee.api.connection.ProxiedPlayer;
 @SuppressWarnings("ClassCanBeRecord")
 public class BungeecordBasePlayer extends BungeecordBaseSender implements BasePlayer {
     private final ProxiedPlayer player;
+    private final BungeeAudiences audience;
 
-    BungeecordBasePlayer(ProxiedPlayer player) {
-        super(player);
+    BungeecordBasePlayer(ProxiedPlayer player, BungeeAudiences audience) {
+        super(player, audience);
         this.player = player;
+        this.audience = audience;
     }
 
     @Override
@@ -59,7 +62,7 @@ public class BungeecordBasePlayer extends BungeecordBaseSender implements BasePl
 
     @Override
     public BaseServer connectedTo() {
-        return new BungeecordBaseServer(player.getServer().getInfo());
+        return new BungeecordBaseServer(player.getServer().getInfo(), audience);
     }
 
     @Override

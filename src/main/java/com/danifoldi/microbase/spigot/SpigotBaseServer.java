@@ -2,6 +2,7 @@ package com.danifoldi.microbase.spigot;
 
 import com.danifoldi.microbase.BasePlayer;
 import com.danifoldi.microbase.BaseServer;
+import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import org.bukkit.Server;
 
 import java.util.Collection;
@@ -9,9 +10,11 @@ import java.util.Collection;
 @SuppressWarnings("ClassCanBeRecord")
 public class SpigotBaseServer implements BaseServer {
     private final Server server;
+    private final BukkitAudiences audience;
 
-    SpigotBaseServer(Server server) {
+    SpigotBaseServer(Server server, BukkitAudiences audience) {
         this.server = server;
+        this.audience = audience;
     }
 
     @Override
@@ -21,7 +24,7 @@ public class SpigotBaseServer implements BaseServer {
 
     @Override
     public Collection<BasePlayer> players() {
-        return server.getOnlinePlayers().stream().map(SpigotBasePlayer::new).map(p -> (BasePlayer)p).toList();
+        return server.getOnlinePlayers().stream().map(p -> new SpigotBasePlayer(p, audience)).map(p -> (BasePlayer)p).toList();
     }
 
     @Override

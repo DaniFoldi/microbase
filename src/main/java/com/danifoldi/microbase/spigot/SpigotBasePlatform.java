@@ -6,6 +6,7 @@ import com.danifoldi.microbase.BasePlugin;
 import com.danifoldi.microbase.BaseSender;
 import com.danifoldi.microbase.BaseServer;
 import com.danifoldi.microbase.Microbase;
+import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import org.bukkit.Bukkit;
 import org.bukkit.Server;
 import org.bukkit.command.PluginCommand;
@@ -24,24 +25,26 @@ import java.util.function.BiFunction;
 @SuppressWarnings("ClassCanBeRecord")
 public class SpigotBasePlatform implements BasePlatform {
     private final Server server;
+    private final BukkitAudiences audience;
 
-    SpigotBasePlatform(Server server) {
+    SpigotBasePlatform(Server server, BukkitAudiences audience) {
         this.server = server;
+        this.audience = audience;
     }
 
     @Override
     public BasePlayer getPlayer(UUID uuid) {
-        return new SpigotBasePlayer(server.getPlayer(uuid));
+        return new SpigotBasePlayer(server.getPlayer(uuid), audience);
     }
 
     @Override
     public BasePlayer getPlayer(String name) {
-        return new SpigotBasePlayer(server.getPlayer(name));
+        return new SpigotBasePlayer(server.getPlayer(name), audience);
     }
 
     @Override
     public List<BasePlayer> getPlayers() {
-        return server.getOnlinePlayers().stream().map(SpigotBasePlayer::new).map(p -> (BasePlayer)p).toList();
+        return server.getOnlinePlayers().stream().map(p -> new SpigotBasePlayer(p, audience)).map(p -> (BasePlayer)p).toList();
     }
 
     @Override
@@ -108,7 +111,7 @@ public class SpigotBasePlatform implements BasePlatform {
 
     @Override
     public Map<String, BaseServer> getServers() {
-        return Map.of(server.getName(), new SpigotBaseServer(server));
+        return Map.of(server.getName(), new SpigotBaseServer(server, audience));
     }
 
     @Override
