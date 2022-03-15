@@ -15,7 +15,7 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class SpigotPlatform {
-    private static final BukkitAudiences audience = BukkitAudiences.builder((JavaPlugin)Microbase.getPlugin()).build();
+    private static final BukkitAudiences audience = BukkitAudiences.builder((JavaPlugin)Microbase.getPlugin().raw()).build();
 
     public static BaseMessage baseMessage() {
         return new SpigotBaseMessage();

@@ -15,7 +15,7 @@ import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.plugin.Plugin;
 
 public class WaterfallPlatform {
-    private final static BungeeAudiences audience = BungeeAudiences.create((Plugin)Microbase.getPlugin());
+    private final static BungeeAudiences audience = BungeeAudiences.create((Plugin)Microbase.getPlugin().raw());
 
     public static BaseMessage baseMessage() {
         return new WaterfallBaseMessage();
