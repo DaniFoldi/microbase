@@ -20,7 +20,7 @@ import java.util.logging.Logger;
 @SuppressWarnings("unused")
 public class Microbase {
 
-    public static Logger logger = Logger.getLogger("?(Microbase)");
+    public static Logger logger = Logger.getLogger("(Microbase)");
     public static final MicrobasePlatformType platformType;
     private static final List<Pair<String, MicrobasePlatformType>> knownPlatforms = List.of(
             Pair.of("com.velocitypowered.api.proxy.ProxyServer", MicrobasePlatformType.VELOCITY),
