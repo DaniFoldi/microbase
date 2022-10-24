@@ -8,8 +8,10 @@ import com.danifoldi.microbase.BaseServer;
 import com.danifoldi.microbase.Microbase;
 import net.kyori.adventure.platform.bungeecord.BungeeAudiences;
 import net.md_5.bungee.api.ProxyServer;
+import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.plugin.Command;
 import net.md_5.bungee.api.plugin.Plugin;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Collection;
 import java.util.List;
@@ -17,6 +19,7 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 @SuppressWarnings("ClassCanBeRecord")
@@ -30,13 +33,18 @@ public class WaterfallBasePlatform implements BasePlatform {
     }
 
     @Override
-    public BasePlayer getPlayer(UUID uuid) {
-        return new WaterfallBasePlayer(server.getPlayer(uuid), audience);
+    public @Nullable BasePlayer getPlayer(UUID uuid) {
+        return playerOrNull(() -> server.getPlayer(uuid));
     }
 
     @Override
-    public BasePlayer getPlayer(String name) {
-        return new WaterfallBasePlayer(server.getPlayer(name), audience);
+    public @Nullable BasePlayer getPlayer(String name) {
+        return playerOrNull(() -> server.getPlayer(name));
+    }
+
+    private @Nullable BasePlayer playerOrNull(Supplier<ProxiedPlayer> playerSupplier) {
+        ProxiedPlayer player = playerSupplier.get();
+        return player == null ? null : new WaterfallBasePlayer(player, audience);
     }
 
     @Override

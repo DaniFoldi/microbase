@@ -10,9 +10,11 @@ import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import org.bukkit.Bukkit;
 import org.bukkit.Server;
 import org.bukkit.command.PluginCommand;
+import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.Plugin;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -21,6 +23,7 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
+import java.util.function.Supplier;
 
 @SuppressWarnings("ClassCanBeRecord")
 public class SpigotBasePlatform implements BasePlatform {
@@ -33,13 +36,18 @@ public class SpigotBasePlatform implements BasePlatform {
     }
 
     @Override
-    public BasePlayer getPlayer(UUID uuid) {
-        return new SpigotBasePlayer(server.getPlayer(uuid), audience);
+    public @Nullable BasePlayer getPlayer(UUID uuid) {
+        return playerOrNull(() -> server.getPlayer(uuid));
     }
 
     @Override
-    public BasePlayer getPlayer(String name) {
-        return new SpigotBasePlayer(server.getPlayer(name), audience);
+    public @Nullable BasePlayer getPlayer(String name) {
+        return playerOrNull(() -> server.getPlayer(name));
+    }
+
+    private @Nullable BasePlayer playerOrNull(Supplier<Player> playerSupplier) {
+        Player player = playerSupplier.get();
+        return player == null ? null : new SpigotBasePlayer(player, audience);
     }
 
     @Override

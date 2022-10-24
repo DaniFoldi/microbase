@@ -6,14 +6,18 @@ import com.danifoldi.microbase.BasePlugin;
 import com.danifoldi.microbase.BaseSender;
 import com.danifoldi.microbase.BaseServer;
 import com.danifoldi.microbase.Microbase;
+import com.velocitypowered.api.proxy.Player;
 import com.velocitypowered.api.proxy.ProxyServer;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 @SuppressWarnings("ClassCanBeRecord")
@@ -25,13 +29,17 @@ public class VelocityBasePlatform implements BasePlatform {
     }
 
     @Override
-    public BasePlayer getPlayer(UUID uuid) {
-        return server.getPlayer(uuid).map(VelocityBasePlayer::new).orElse(null);
+    public @Nullable BasePlayer getPlayer(UUID uuid) {
+        return playerOrNull(() -> server.getPlayer(uuid));
     }
 
     @Override
-    public BasePlayer getPlayer(String name) {
-        return server.getPlayer(name).map(VelocityBasePlayer::new).orElse(null);
+    public @Nullable BasePlayer getPlayer(String name) {
+        return playerOrNull(() -> server.getPlayer(name));
+    }
+
+    private @Nullable BasePlayer playerOrNull(Supplier<Optional<Player>> playerSupplier) {
+        return playerSupplier.get().map(VelocityBasePlayer::new).orElse(null);
     }
 
     @Override

@@ -1,5 +1,7 @@
 package com.danifoldi.microbase;
 
+import org.jetbrains.annotations.Nullable;
+
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -8,8 +10,8 @@ import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
 
 public interface BasePlatform {
-    BasePlayer getPlayer(UUID uuid);
-    BasePlayer getPlayer(String name);
+    @Nullable BasePlayer getPlayer(UUID uuid);
+    @Nullable BasePlayer getPlayer(String name);
     List<BasePlayer> getPlayers();
     String platformName();
     String platformVersion();

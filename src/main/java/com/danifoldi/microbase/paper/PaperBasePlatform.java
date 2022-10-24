@@ -9,9 +9,11 @@ import com.danifoldi.microbase.Microbase;
 import org.bukkit.Bukkit;
 import org.bukkit.Server;
 import org.bukkit.command.PluginCommand;
+import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.Plugin;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -20,6 +22,7 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
+import java.util.function.Supplier;
 
 @SuppressWarnings("ClassCanBeRecord")
 public class PaperBasePlatform implements BasePlatform {
@@ -30,13 +33,18 @@ public class PaperBasePlatform implements BasePlatform {
     }
 
     @Override
-    public BasePlayer getPlayer(UUID uuid) {
-        return new PaperBasePlayer(server.getPlayer(uuid));
+    public @Nullable BasePlayer getPlayer(UUID uuid) {
+        return playerOrNull(() -> server.getPlayer(uuid));
     }
 
     @Override
-    public BasePlayer getPlayer(String name) {
-        return new PaperBasePlayer(server.getPlayer(name));
+    public @Nullable BasePlayer getPlayer(String name) {
+        return playerOrNull(() -> server.getPlayer(name));
+    }
+
+    private @Nullable BasePlayer playerOrNull(Supplier<Player> playerSupplier) {
+        @Nullable Player player = playerSupplier.get();
+        return player == null ? null : new PaperBasePlayer(player);
     }
 
     @Override
