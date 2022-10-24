@@ -23,7 +23,7 @@ public class DmlUtil {
         object.keys().forEach(key -> {
             DmlValue value = object.get(key);
             if (value instanceof DmlString stringValue) {
-                values.put(prefix + "." + key.value(), stringValue.value());
+                values.put(Objects.equals(prefix, "") ? key.value() : prefix + "." + key.value(), stringValue.value());
             } else if (value instanceof DmlObject objectValue) {
                 values.putAll(flattenStrings(objectValue, Objects.equals(prefix, "") ? key.value() : prefix + "." + key.value()));
             }
