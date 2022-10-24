@@ -11,7 +11,6 @@ import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
-@SuppressWarnings("ClassCanBeRecord")
 public class SpigotBasePlayer extends SpigotBaseSender implements BasePlayer {
     private final Player player;
     private final BukkitAudiences audience;
@@ -49,6 +48,7 @@ public class SpigotBasePlayer extends SpigotBaseSender implements BasePlayer {
 
     @Override
     public void actionbar(String message) {
+        //noinspection deprecation
         player.sendActionBar(message);
     }
 
@@ -69,11 +69,13 @@ public class SpigotBasePlayer extends SpigotBaseSender implements BasePlayer {
 
     @Override
     public void title(String message, int fadeIn, int stay, int fadeOut) {
+        //noinspection deprecation
         player.showTitle(new TextComponent(message), null, fadeIn, stay, fadeOut);
     }
 
     @Override
     public void subtitle(String message, int fadeIn, int stay, int fadeOut) {
+        //noinspection deprecation
         player.showTitle(null, new TextComponent(message), fadeIn, stay, fadeOut);
     }
 

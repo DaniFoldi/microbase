@@ -10,7 +10,6 @@ import net.md_5.bungee.api.connection.ProxiedPlayer;
 
 import java.util.UUID;
 
-@SuppressWarnings("ClassCanBeRecord")
 public class BungeecordBaseSender implements BaseSender {
     private final CommandSender sender;
     private final BungeeAudiences audience;

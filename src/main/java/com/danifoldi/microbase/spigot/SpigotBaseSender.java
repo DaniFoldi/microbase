@@ -10,7 +10,6 @@ import org.bukkit.entity.Player;
 
 import java.util.UUID;
 
-@SuppressWarnings("ClassCanBeRecord")
 public class SpigotBaseSender implements BaseSender {
     private final CommandSender sender;
     private final BukkitAudiences audience;
@@ -33,6 +32,7 @@ public class SpigotBaseSender implements BaseSender {
     @Override
     public void send(BaseMessage message) {
         if (message instanceof SpigotBaseMessage cMessage) {
+            //noinspection deprecation
             sender.sendMessage(cMessage.convert());
         }
     }

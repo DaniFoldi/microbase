@@ -8,6 +8,7 @@ import com.danifoldi.microbase.BaseServer;
 import com.danifoldi.microbase.Microbase;
 import net.kyori.adventure.platform.bungeecord.BungeeAudiences;
 import net.md_5.bungee.api.ProxyServer;
+import net.md_5.bungee.api.config.ServerInfo;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.plugin.Command;
 import net.md_5.bungee.api.plugin.Plugin;
@@ -94,7 +95,9 @@ public class BungeecordBasePlatform implements BasePlatform {
 
     @Override
     public Map<String, BaseServer> getServers() {
-        return Map.copyOf(server.getServers()).entrySet().stream().collect(Collectors.toMap(Map.Entry::getKey, e -> new BungeecordBaseServer(e.getValue(), audience)));
+        // noinspection deprecation
+        Map<String, ServerInfo> servers = server.getServers();
+        return Map.copyOf(servers).entrySet().stream().collect(Collectors.toMap(Map.Entry::getKey, e -> new BungeecordBaseServer(e.getValue(), audience)));
     }
 
     @Override

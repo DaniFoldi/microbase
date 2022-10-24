@@ -57,6 +57,7 @@ public class BungeecordBaseMessage implements BaseMessage {
         return this;
     }
 
+    @SuppressWarnings("deprecation")
     BaseComponent convert() {
         BaseComponent result = new TextComponent();
 

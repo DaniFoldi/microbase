@@ -9,7 +9,6 @@ import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 
-@SuppressWarnings("ClassCanBeRecord")
 public class BungeecordBasePlayer extends BungeecordBaseSender implements BasePlayer {
     private final ProxiedPlayer player;
     private final BungeeAudiences audience;
@@ -47,7 +46,11 @@ public class BungeecordBasePlayer extends BungeecordBaseSender implements BasePl
 
     @Override
     public void actionbar(String message) {
-        player.sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(message));
+        //noinspection deprecation
+        ChatMessageType actionBar = ChatMessageType.ACTION_BAR;
+        //noinspection deprecation
+        TextComponent component = new TextComponent(message);
+        player.sendMessage(actionBar, component);
     }
 
     @Override
@@ -67,11 +70,15 @@ public class BungeecordBasePlayer extends BungeecordBaseSender implements BasePl
 
     @Override
     public void title(String message, int fadeIn, int stay, int fadeOut) {
-        player.sendTitle(ProxyServer.getInstance().createTitle().title(new TextComponent(message)).fadeIn(fadeIn).stay(stay).fadeOut(fadeOut));
+        // noinspection deprecation
+        TextComponent component = new TextComponent(message);
+        player.sendTitle(ProxyServer.getInstance().createTitle().title(component).fadeIn(fadeIn).stay(stay).fadeOut(fadeOut));
     }
 
     @Override
     public void subtitle(String message, int fadeIn, int stay, int fadeOut) {
-        player.sendTitle(ProxyServer.getInstance().createTitle().subTitle(new TextComponent(message)).fadeIn(fadeIn).stay(stay).fadeOut(fadeOut));
+        // noinspection deprecation
+        TextComponent component = new TextComponent(message);
+        player.sendTitle(ProxyServer.getInstance().createTitle().subTitle(component).fadeIn(fadeIn).stay(stay).fadeOut(fadeOut));
     }
 }

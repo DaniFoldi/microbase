@@ -10,7 +10,6 @@ import net.md_5.bungee.api.connection.ProxiedPlayer;
 
 import java.util.UUID;
 
-@SuppressWarnings("ClassCanBeRecord")
 public class WaterfallBaseSender implements BaseSender {
     private final CommandSender sender;
     private final BungeeAudiences audience;
