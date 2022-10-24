@@ -4,7 +4,7 @@ plugins {
 }
 
 group 'com.danifoldi'
-version '0.3.6'
+version '0.4.0'
 
 sourceCompatibility = JavaVersion.VERSION_17
 targetCompatibility = JavaVersion.VERSION_17
@@ -28,6 +28,8 @@ dependencies {
 
     compileOnly 'com.viaversion:viaversion-api:4.4.2'
     compileOnly 'com.github.LeonMangler:PremiumVanishAPI:2.7.11-2'
+
+    implementation 'com.danifoldi:DML:1.0.2'
 }
 
 task sourcesJar(type: Jar) {
@@ -62,7 +64,7 @@ publishing {
 
             pom.withXml {
                 asNode().dependencies.'*'.findAll() {
-                    it.scope.text() == 'runtime'  && project.configurations.default.allDependencies.find { dep ->
+                    it.scope.text() == 'runtime' && project.configurations.default.allDependencies.find { dep ->
                         dep.name == it.artifactId.text()
                     }
                 }.each() {

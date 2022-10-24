@@ -1,13 +1,17 @@
 package com.danifoldi.microbase;
 
+import com.danifoldi.dml.exception.DmlParseException;
 import com.danifoldi.microbase.bungeecord.BungeecordPlatform;
 import com.danifoldi.microbase.paper.PaperPlatform;
 import com.danifoldi.microbase.spigot.SpigotPlatform;
 import com.danifoldi.microbase.util.ClassUtil;
+import com.danifoldi.microbase.util.DmlUtil;
+import com.danifoldi.microbase.util.FileUtil;
 import com.danifoldi.microbase.util.Pair;
 import com.danifoldi.microbase.velocity.VelocityPlatform;
 import com.danifoldi.microbase.waterfall.WaterfallPlatform;
 
+import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Map;
@@ -50,6 +54,21 @@ public class Microbase {
         Microbase.datafolder = datafolder;
         Microbase.threadPool = threadPool;
         Microbase.messageProvider = messageProvider;
+
+        logger = Logger.getLogger(Microbase.getPlugin().name() + "(Mb)");
+    }
+
+    public static void setup(Object platform, Object plugin, Path datafolder, ExecutorService threadPool, String messageFile) {
+        Microbase.platform = platform;
+        Microbase.plugin = plugin;
+        Microbase.datafolder = datafolder;
+        Microbase.threadPool = threadPool;
+        try {
+            Microbase.messageProvider = new ConcurrentHashMap<>(DmlUtil.flattenStrings(FileUtil.ensureDmlFile(datafolder, messageFile)))::get;
+        } catch (IOException | DmlParseException e) {
+            logger.warning("Could not load message file");
+            Microbase.messageProvider = key -> "";
+        }
 
         logger = Logger.getLogger(Microbase.getPlugin().name() + "(Mb)");
     }
