@@ -1,5 +1,6 @@
 package com.danifoldi.microbase;
 
+@SuppressWarnings("unused")
 public interface BasePlayer extends BaseSender {
     boolean vanished();
 

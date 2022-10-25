@@ -4,6 +4,7 @@ import net.kyori.adventure.text.Component;
 
 import java.util.UUID;
 
+@SuppressWarnings("unused")
 public interface BaseSender {
     boolean hasPermission(String permission);
 

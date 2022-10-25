@@ -2,6 +2,7 @@ package com.danifoldi.microbase;
 
 import java.util.List;
 
+@SuppressWarnings("unused")
 public interface BasePlugin {
     String name();
 

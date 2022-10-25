@@ -9,6 +9,7 @@ import java.util.UUID;
 import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
 
+@SuppressWarnings("unused")
 public interface BasePlatform {
     @Nullable BasePlayer getPlayer(UUID uuid);
 
