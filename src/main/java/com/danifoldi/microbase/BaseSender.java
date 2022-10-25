@@ -6,6 +6,9 @@ import java.util.UUID;
 
 public interface BaseSender {
     boolean hasPermission(String permission);
+    default boolean isPlayer() {
+        return this instanceof BasePlayer;
+    }
 
     void send(String message);
     void send(BaseMessage message);
