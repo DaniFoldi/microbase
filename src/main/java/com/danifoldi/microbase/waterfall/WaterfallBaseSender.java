@@ -25,18 +25,6 @@ public class WaterfallBaseSender implements BaseSender {
     }
 
     @Override
-    public void send(String message) {
-        send(LegacyComponentSerializer.legacySection().deserialize(message));
-    }
-
-    @Override
-    public void send(BaseMessage message) {
-        if (message instanceof WaterfallBaseMessage cMessage) {
-            sender.sendMessage(cMessage.convert());
-        }
-    }
-
-    @Override
     public void send(Component message) {
         audience.sender(sender).sendMessage(message);
     }

@@ -25,19 +25,6 @@ public class SpigotBaseSender implements BaseSender {
     }
 
     @Override
-    public void send(String message) {
-        send(LegacyComponentSerializer.legacySection().deserialize(message));
-    }
-
-    @Override
-    public void send(BaseMessage message) {
-        if (message instanceof SpigotBaseMessage cMessage) {
-            //noinspection deprecation
-            sender.sendMessage(cMessage.convert());
-        }
-    }
-
-    @Override
     public void send(Component message) {
         audience.sender(sender).sendMessage(message);
     }

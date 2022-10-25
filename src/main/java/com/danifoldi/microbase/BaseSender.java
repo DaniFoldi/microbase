@@ -1,6 +1,7 @@
 package com.danifoldi.microbase;
 
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 
 import java.util.UUID;
 
@@ -12,9 +13,13 @@ public interface BaseSender {
         return this instanceof BasePlayer;
     }
 
-    void send(String message);
+    default void send(String message) {
+        send(LegacyComponentSerializer.legacyAmpersand().deserialize(message));
+    }
 
-    void send(BaseMessage message);
+    default void send(BaseMessage message) {
+        send(message.convert());
+    }
 
     void send(Component message);
 
