@@ -1,6 +1,5 @@
 package com.danifoldi.microbase.waterfall;
 
-import com.danifoldi.microbase.BaseMessage;
 import com.danifoldi.microbase.BasePlatform;
 import com.danifoldi.microbase.BasePlayer;
 import com.danifoldi.microbase.BasePlugin;
@@ -16,15 +15,6 @@ import net.md_5.bungee.api.plugin.Plugin;
 
 public class WaterfallPlatform {
     private final static BungeeAudiences audience = BungeeAudiences.create((Plugin)Microbase.getPlugin().raw());
-
-    private WaterfallPlatform() {
-        throw new UnsupportedOperationException();
-    }
-
-    public static BaseMessage baseMessage() {
-        return new WaterfallBaseMessage();
-    }
-
     public static BasePlatform toBasePlatform(ProxyServer server) {
         return new WaterfallBasePlatform(server, audience);
     }
@@ -43,5 +33,9 @@ public class WaterfallPlatform {
 
     public static BaseServer toBaseServer(ServerInfo server) {
         return new WaterfallBaseServer(server, audience);
+    }
+
+    private WaterfallPlatform() {
+        throw new UnsupportedOperationException();
     }
 }

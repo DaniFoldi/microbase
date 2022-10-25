@@ -1,6 +1,5 @@
 package com.danifoldi.microbase.paper;
 
-import com.danifoldi.microbase.BaseMessage;
 import com.danifoldi.microbase.BasePlatform;
 import com.danifoldi.microbase.BasePlayer;
 import com.danifoldi.microbase.BasePlugin;
@@ -12,10 +11,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
 public class PaperPlatform {
-    public static BaseMessage baseMessage() {
-        return new PaperBaseMessage();
-    }
-
     public static BasePlatform toBasePlatform(Server server) {
         return new PaperBasePlatform(server);
     }

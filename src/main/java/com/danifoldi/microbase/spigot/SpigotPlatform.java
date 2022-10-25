@@ -1,6 +1,5 @@
 package com.danifoldi.microbase.spigot;
 
-import com.danifoldi.microbase.BaseMessage;
 import com.danifoldi.microbase.BasePlatform;
 import com.danifoldi.microbase.BasePlayer;
 import com.danifoldi.microbase.BasePlugin;
@@ -16,10 +15,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class SpigotPlatform {
     private static final BukkitAudiences audience = BukkitAudiences.builder((JavaPlugin)Microbase.getPlugin().raw()).build();
-
-    public static BaseMessage baseMessage() {
-        return new SpigotBaseMessage();
-    }
 
     public static BasePlatform toBasePlatform(Server server) {
         return new SpigotBasePlatform(server, audience);

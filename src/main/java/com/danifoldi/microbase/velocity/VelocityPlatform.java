@@ -1,6 +1,5 @@
 package com.danifoldi.microbase.velocity;
 
-import com.danifoldi.microbase.BaseMessage;
 import com.danifoldi.microbase.BasePlatform;
 import com.danifoldi.microbase.BasePlayer;
 import com.danifoldi.microbase.BasePlugin;
@@ -13,14 +12,6 @@ import com.velocitypowered.api.proxy.ProxyServer;
 import com.velocitypowered.api.proxy.server.RegisteredServer;
 
 public class VelocityPlatform {
-    private VelocityPlatform() {
-        throw new UnsupportedOperationException();
-    }
-
-    public static BaseMessage baseMessage() {
-        return new VelocityBaseMessage();
-    }
-
     public static BasePlatform toBasePlatform(ProxyServer server) {
         return new VelocityBasePlatform(server);
     }
@@ -39,5 +30,9 @@ public class VelocityPlatform {
 
     public static BaseServer toBaseServer(RegisteredServer server) {
         return new VelocityBaseServer(server);
+    }
+
+    private VelocityPlatform() {
+        throw new UnsupportedOperationException();
     }
 }

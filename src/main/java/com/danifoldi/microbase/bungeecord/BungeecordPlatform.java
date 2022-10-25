@@ -1,6 +1,5 @@
 package com.danifoldi.microbase.bungeecord;
 
-import com.danifoldi.microbase.BaseMessage;
 import com.danifoldi.microbase.BasePlatform;
 import com.danifoldi.microbase.BasePlayer;
 import com.danifoldi.microbase.BasePlugin;
@@ -16,10 +15,6 @@ import net.md_5.bungee.api.plugin.Plugin;
 
 public class BungeecordPlatform {
     private final static BungeeAudiences audience = BungeeAudiences.create((Plugin)Microbase.getPlugin().raw());
-
-    public static BaseMessage baseMessage() {
-        return new BungeecordBaseMessage();
-    }
 
     public static BasePlatform toBasePlatform(ProxyServer server) {
         return new BungeecordBasePlatform(server, audience);
