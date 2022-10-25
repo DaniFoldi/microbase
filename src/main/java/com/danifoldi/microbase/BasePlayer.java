@@ -1,5 +1,8 @@
 package com.danifoldi.microbase;
 
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
+
 @SuppressWarnings("unused")
 public interface BasePlayer extends BaseSender {
     boolean vanished();
@@ -12,7 +15,15 @@ public interface BasePlayer extends BaseSender {
 
     void run(String command);
 
-    void actionbar(String message);
+    default void actionbar(String message) {
+        actionbar(LegacyComponentSerializer.legacyAmpersand().deserialize(message));
+    }
+
+    default void actionbar(BaseMessage message) {
+        actionbar(message.convert());
+    }
+
+    void actionbar(Component message);
 
     void chat(String message);
 

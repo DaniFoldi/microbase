@@ -6,6 +6,7 @@ import com.danifoldi.microbase.Microbase;
 import com.danifoldi.microbase.depend.PremiumVanishDepend;
 import com.danifoldi.microbase.depend.ViaVersionDepend;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
+import net.kyori.adventure.text.Component;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -46,9 +47,8 @@ public class SpigotBasePlayer extends SpigotBaseSender implements BasePlayer {
     }
 
     @Override
-    public void actionbar(String message) {
-        //noinspection deprecation
-        player.sendActionBar(message);
+    public void actionbar(Component message) {
+        audience.player(player).sendActionBar(message);
     }
 
     @Override

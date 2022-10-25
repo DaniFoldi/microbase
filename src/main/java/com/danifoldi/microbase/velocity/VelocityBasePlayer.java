@@ -16,7 +16,6 @@ import java.time.temporal.ChronoUnit;
 import java.util.Locale;
 import java.util.Optional;
 
-@SuppressWarnings("ClassCanBeRecord")
 public class VelocityBasePlayer extends VelocityBaseSender implements BasePlayer {
     private final Player player;
 
@@ -51,8 +50,8 @@ public class VelocityBasePlayer extends VelocityBaseSender implements BasePlayer
     }
 
     @Override
-    public void actionbar(String message) {
-        player.sendActionBar(Component.text(message));
+    public void actionbar(Component message) {
+        player.sendActionBar(message);
     }
 
     @Override

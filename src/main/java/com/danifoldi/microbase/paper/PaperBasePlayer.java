@@ -14,7 +14,6 @@ import org.bukkit.entity.Player;
 import java.time.Duration;
 import java.time.temporal.ChronoUnit;
 
-@SuppressWarnings("ClassCanBeRecord")
 public class PaperBasePlayer extends PaperBaseSender implements BasePlayer {
     private final Player player;
 
@@ -49,8 +48,8 @@ public class PaperBasePlayer extends PaperBaseSender implements BasePlayer {
     }
 
     @Override
-    public void actionbar(String message) {
-        player.sendActionBar(Component.text(message));
+    public void actionbar(Component message) {
+        player.sendActionBar(message);
     }
 
     @Override
@@ -71,12 +70,12 @@ public class PaperBasePlayer extends PaperBaseSender implements BasePlayer {
     @Override
     public void title(String message, int fadeIn, int stay, int fadeOut) {
         player.sendTitlePart(TitlePart.TITLE, Component.text(message));
-        player.sendTitlePart(TitlePart.TIMES, Title.Times.of(Duration.of(fadeIn, ChronoUnit.SECONDS), Duration.of(stay, ChronoUnit.SECONDS), Duration.of(fadeOut, ChronoUnit.SECONDS)));
+        player.sendTitlePart(TitlePart.TIMES, Title.Times.times(Duration.of(fadeIn, ChronoUnit.SECONDS), Duration.of(stay, ChronoUnit.SECONDS), Duration.of(fadeOut, ChronoUnit.SECONDS)));
     }
 
     @Override
     public void subtitle(String message, int fadeIn, int stay, int fadeOut) {
         player.sendTitlePart(TitlePart.SUBTITLE, Component.text(message));
-        player.sendTitlePart(TitlePart.TIMES, Title.Times.of(Duration.of(fadeIn, ChronoUnit.SECONDS), Duration.of(stay, ChronoUnit.SECONDS), Duration.of(fadeOut, ChronoUnit.SECONDS)));
+        player.sendTitlePart(TitlePart.TIMES, Title.Times.times(Duration.of(fadeIn, ChronoUnit.SECONDS), Duration.of(stay, ChronoUnit.SECONDS), Duration.of(fadeOut, ChronoUnit.SECONDS)));
     }
 }

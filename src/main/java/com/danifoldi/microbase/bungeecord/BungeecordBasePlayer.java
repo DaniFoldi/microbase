@@ -4,7 +4,7 @@ import com.danifoldi.microbase.BasePlayer;
 import com.danifoldi.microbase.BaseServer;
 import com.danifoldi.microbase.depend.PremiumVanishDepend;
 import net.kyori.adventure.platform.bungeecord.BungeeAudiences;
-import net.md_5.bungee.api.ChatMessageType;
+import net.kyori.adventure.text.Component;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
@@ -45,12 +45,8 @@ public class BungeecordBasePlayer extends BungeecordBaseSender implements BasePl
     }
 
     @Override
-    public void actionbar(String message) {
-        //noinspection deprecation
-        ChatMessageType actionBar = ChatMessageType.ACTION_BAR;
-        //noinspection deprecation
-        TextComponent component = new TextComponent(message);
-        player.sendMessage(actionBar, component);
+    public void actionbar(Component message) {
+        audience.player(player).sendActionBar(message);
     }
 
     @Override
