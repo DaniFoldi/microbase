@@ -78,9 +78,4 @@ public class SpigotBasePlayer extends SpigotBaseSender implements BasePlayer {
         //noinspection deprecation
         player.showTitle(null, new TextComponent(message), fadeIn, stay, fadeOut);
     }
-
-    @Override
-    public void send(BaseMessage message) {
-
-    }
 }
