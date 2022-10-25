@@ -119,11 +119,11 @@ public class PaperBaseMessage implements BaseMessage {
 
         return result;
     }
-    
+
     static class Operation {
         String type;
         Pair<String, String> value;
-        
+
         Operation(String type, Pair<String, String> value) {
             this.type = type;
             this.value = value;

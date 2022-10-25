@@ -19,17 +19,17 @@ public class WaterfallCommand extends Command implements TabExecutor {
     private final BiFunction<BaseSender, String, Collection<String>> suggest;
 
     WaterfallCommand(final List<String> aliases,
-                   final BiConsumer<BaseSender, String> dispatch,
-                   final BiFunction<BaseSender, String, Collection<String>> suggest) {
+                     final BiConsumer<BaseSender, String> dispatch,
+                     final BiFunction<BaseSender, String, Collection<String>> suggest) {
         super(aliases.stream().findFirst().orElseThrow(), null, aliases.stream().skip(1).toArray(String[]::new));
         this.dispatch = dispatch;
         this.suggest = suggest;
     }
 
     WaterfallCommand(final List<String> aliases,
-                   final String permission,
-                   final BiConsumer<BaseSender, String> dispatch,
-                   final BiFunction<BaseSender, String, Collection<String>> suggest) {
+                     final String permission,
+                     final BiConsumer<BaseSender, String> dispatch,
+                     final BiFunction<BaseSender, String, Collection<String>> suggest) {
         super(aliases.stream().findFirst().orElseThrow(), permission, aliases.stream().skip(1).toArray(String[]::new));
         this.dispatch = dispatch;
         this.suggest = suggest;

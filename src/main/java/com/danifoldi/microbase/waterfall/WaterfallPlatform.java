@@ -17,6 +17,10 @@ import net.md_5.bungee.api.plugin.Plugin;
 public class WaterfallPlatform {
     private final static BungeeAudiences audience = BungeeAudiences.create((Plugin)Microbase.getPlugin().raw());
 
+    private WaterfallPlatform() {
+        throw new UnsupportedOperationException();
+    }
+
     public static BaseMessage baseMessage() {
         return new WaterfallBaseMessage();
     }
@@ -39,9 +43,5 @@ public class WaterfallPlatform {
 
     public static BaseServer toBaseServer(ServerInfo server) {
         return new WaterfallBaseServer(server, audience);
-    }
-
-    private WaterfallPlatform() {
-        throw new UnsupportedOperationException();
     }
 }

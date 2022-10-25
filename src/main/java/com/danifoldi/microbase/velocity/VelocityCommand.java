@@ -19,8 +19,8 @@ public class VelocityCommand implements RawCommand {
     private final String name;
 
     VelocityCommand(final BiConsumer<BaseSender, String> dispatch,
-                   final BiFunction<BaseSender, String, Collection<String>> suggest,
-                   final String name) {
+                    final BiFunction<BaseSender, String, Collection<String>> suggest,
+                    final String name) {
         this.permission = null;
         this.dispatch = dispatch;
         this.suggest = suggest;
@@ -28,9 +28,9 @@ public class VelocityCommand implements RawCommand {
     }
 
     VelocityCommand(final String permission,
-                   final BiConsumer<BaseSender, String> dispatch,
-                   final BiFunction<BaseSender, String, Collection<String>> suggest,
-                   final String name) {
+                    final BiConsumer<BaseSender, String> dispatch,
+                    final BiFunction<BaseSender, String, Collection<String>> suggest,
+                    final String name) {
         this.permission = permission;
         this.dispatch = dispatch;
         this.suggest = suggest;

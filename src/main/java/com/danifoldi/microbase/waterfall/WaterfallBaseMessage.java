@@ -116,7 +116,7 @@ public class WaterfallBaseMessage implements BaseMessage {
                                 case "provide" -> Microbase.provideMessage(operation.value.a());
                                 default -> "";
                             });
-                        break;
+                            break;
                     }
                     break;
             }
@@ -124,11 +124,11 @@ public class WaterfallBaseMessage implements BaseMessage {
 
         return result;
     }
-    
+
     static class Operation {
         String type;
         Pair<String, String> value;
-        
+
         Operation(String type, Pair<String, String> value) {
             this.type = type;
             this.value = value;

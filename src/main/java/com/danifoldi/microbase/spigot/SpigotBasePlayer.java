@@ -1,6 +1,5 @@
 package com.danifoldi.microbase.spigot;
 
-import com.danifoldi.microbase.BaseMessage;
 import com.danifoldi.microbase.BasePlayer;
 import com.danifoldi.microbase.BaseServer;
 import com.danifoldi.microbase.Microbase;

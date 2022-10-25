@@ -2,8 +2,11 @@ package com.danifoldi.microbase;
 
 public interface BaseMessage {
     BaseMessage rawText(String text);
+
     BaseMessage colorizedText(String text);
+
     BaseMessage providedText(String key);
+
     default BaseMessage newLine() {
         return rawText("\n");
     }
@@ -11,7 +14,9 @@ public interface BaseMessage {
     BaseMessage replace(String template, String replacement);
 
     BaseMessage click(ClickType clickType);
+
     BaseMessage hover();
+
     BaseMessage text();
 
     enum ClickType {

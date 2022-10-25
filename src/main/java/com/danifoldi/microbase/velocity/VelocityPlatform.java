@@ -13,6 +13,10 @@ import com.velocitypowered.api.proxy.ProxyServer;
 import com.velocitypowered.api.proxy.server.RegisteredServer;
 
 public class VelocityPlatform {
+    private VelocityPlatform() {
+        throw new UnsupportedOperationException();
+    }
+
     public static BaseMessage baseMessage() {
         return new VelocityBaseMessage();
     }
@@ -35,9 +39,5 @@ public class VelocityPlatform {
 
     public static BaseServer toBaseServer(RegisteredServer server) {
         return new VelocityBaseServer(server);
-    }
-
-    private VelocityPlatform() {
-        throw new UnsupportedOperationException();
     }
 }
