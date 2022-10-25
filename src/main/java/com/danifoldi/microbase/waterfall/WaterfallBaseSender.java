@@ -1,10 +1,8 @@
 package com.danifoldi.microbase.waterfall;
 
-import com.danifoldi.microbase.BaseMessage;
 import com.danifoldi.microbase.BaseSender;
 import net.kyori.adventure.platform.bungeecord.BungeeAudiences;
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 

@@ -106,14 +106,7 @@ public class Microbase {
     }
 
     public static BaseMessage baseMessage() {
-        return switch (platformType) {
-            case BUNGEECORD -> BungeecordPlatform.baseMessage();
-            case PAPER -> PaperPlatform.baseMessage();
-            case SPIGOT -> SpigotPlatform.baseMessage();
-            case VELOCITY -> VelocityPlatform.baseMessage();
-            case WATERFALL -> WaterfallPlatform.baseMessage();
-            default -> null;
-        };
+        return new BaseMessage();
     }
 
     public static<T> BasePlatform toBasePlatform(T pl) {

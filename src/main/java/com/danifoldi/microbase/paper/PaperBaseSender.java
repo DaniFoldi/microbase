@@ -1,9 +1,7 @@
 package com.danifoldi.microbase.paper;
 
-import com.danifoldi.microbase.BaseMessage;
 import com.danifoldi.microbase.BaseSender;
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 

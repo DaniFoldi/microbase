@@ -1,11 +1,9 @@
 package com.danifoldi.microbase.velocity;
 
-import com.danifoldi.microbase.BaseMessage;
 import com.danifoldi.microbase.BaseSender;
 import com.velocitypowered.api.command.CommandSource;
 import com.velocitypowered.api.proxy.Player;
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 
 import java.util.UUID;
 
