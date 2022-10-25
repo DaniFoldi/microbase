@@ -24,7 +24,6 @@ import java.util.logging.Logger;
 @SuppressWarnings("unused")
 public class Microbase {
 
-    public static Logger logger = Logger.getLogger("(Microbase)");
     public static final MicrobasePlatformType platformType;
     private static final List<Pair<String, MicrobasePlatformType>> knownPlatforms = List.of(
             Pair.of("com.velocitypowered.api.proxy.ProxyServer", MicrobasePlatformType.VELOCITY),
@@ -33,6 +32,13 @@ public class Microbase {
             Pair.of("io.papermc.paper.event.block.TargetHitEvent", MicrobasePlatformType.PAPER),
             Pair.of("org.spigotmc.event.player.PlayerSpawnLocationEvent", MicrobasePlatformType.SPIGOT)
     );
+    private static final Map<String, Object> commandCache = new ConcurrentHashMap<>();
+    public static Logger logger = Logger.getLogger("(Microbase)");
+    private static Object platform;
+    private static Object plugin;
+    private static Path datafolder;
+    private static ExecutorService threadPool;
+    private static Function<String, String> messageProvider;
 
     static {
         platformType = knownPlatforms.stream().filter(p -> ClassUtil.check(p.a())).findFirst().map(Pair::b).orElse(MicrobasePlatformType.UNKNOWN);
@@ -40,13 +46,6 @@ public class Microbase {
             logger.severe("Platform is not supported");
         }
     }
-
-    private static Object platform;
-    private static Object plugin;
-    private static Path datafolder;
-    private static ExecutorService threadPool;
-    private static Function<String, String> messageProvider;
-    private static final Map<String, Object> commandCache = new ConcurrentHashMap<>();
 
     public static void setup(Object platform, Object plugin, Path datafolder, ExecutorService threadPool, Function<String, String> messageProvider) {
         Microbase.platform = platform;
