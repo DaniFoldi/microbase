@@ -72,12 +72,12 @@ public class VelocityBasePlayer extends VelocityBaseSender implements BasePlayer
     @Override
     public void title(String message, int fadeIn, int stay, int fadeOut) {
         player.sendTitlePart(TitlePart.TITLE, Component.text(message));
-        player.sendTitlePart(TitlePart.TIMES, Title.Times.of(Duration.of(fadeIn, ChronoUnit.SECONDS), Duration.of(stay, ChronoUnit.SECONDS), Duration.of(fadeOut, ChronoUnit.SECONDS)));
+        player.sendTitlePart(TitlePart.TIMES, Title.Times.times(Duration.of(fadeIn, ChronoUnit.SECONDS), Duration.of(stay, ChronoUnit.SECONDS), Duration.of(fadeOut, ChronoUnit.SECONDS)));
     }
 
     @Override
     public void subtitle(String message, int fadeIn, int stay, int fadeOut) {
         player.sendTitlePart(TitlePart.SUBTITLE, Component.text(message));
-        player.sendTitlePart(TitlePart.TIMES, Title.Times.of(Duration.of(fadeIn, ChronoUnit.SECONDS), Duration.of(stay, ChronoUnit.SECONDS), Duration.of(fadeOut, ChronoUnit.SECONDS)));
+        player.sendTitlePart(TitlePart.TIMES, Title.Times.times(Duration.of(fadeIn, ChronoUnit.SECONDS), Duration.of(stay, ChronoUnit.SECONDS), Duration.of(fadeOut, ChronoUnit.SECONDS)));
     }
 }
