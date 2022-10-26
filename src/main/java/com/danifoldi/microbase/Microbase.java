@@ -1,14 +1,19 @@
 package com.danifoldi.microbase;
 
 import com.danifoldi.dml.exception.DmlParseException;
+import com.danifoldi.microbase.bungeecord.BungeecordBaseScheduler;
 import com.danifoldi.microbase.bungeecord.BungeecordPlatform;
+import com.danifoldi.microbase.paper.PaperBaseScheduler;
 import com.danifoldi.microbase.paper.PaperPlatform;
+import com.danifoldi.microbase.spigot.SpigotBaseScheduler;
 import com.danifoldi.microbase.spigot.SpigotPlatform;
 import com.danifoldi.microbase.util.ClassUtil;
 import com.danifoldi.microbase.util.DmlUtil;
 import com.danifoldi.microbase.util.FileUtil;
 import com.danifoldi.microbase.util.Pair;
+import com.danifoldi.microbase.velocity.VelocityBaseScheduler;
 import com.danifoldi.microbase.velocity.VelocityPlatform;
+import com.danifoldi.microbase.waterfall.WaterfallBaseScheduler;
 import com.danifoldi.microbase.waterfall.WaterfallPlatform;
 
 import java.io.IOException;
@@ -107,6 +112,28 @@ public class Microbase {
 
     public static BaseMessage baseMessage() {
         return new BaseMessage();
+    }
+
+    public static BaseScheduler getScheduler() {
+        switch (platformType) {
+            case BUNGEECORD -> {
+                return new BungeecordBaseScheduler((net.md_5.bungee.api.plugin.Plugin)plugin, ((net.md_5.bungee.api.ProxyServer)platform).getScheduler());
+            }
+            case PAPER -> {
+                return new PaperBaseScheduler((org.bukkit.plugin.java.JavaPlugin)plugin);
+            }
+            case SPIGOT -> {
+                return new SpigotBaseScheduler((org.bukkit.plugin.java.JavaPlugin)plugin);
+            }
+            case VELOCITY -> {
+                return new VelocityBaseScheduler((com.velocitypowered.api.plugin.Plugin)plugin, ((com.velocitypowered.api.proxy.ProxyServer)platform).getScheduler());
+            }
+            case WATERFALL -> {
+                return new WaterfallBaseScheduler((net.md_5.bungee.api.plugin.Plugin)plugin, ((net.md_5.bungee.api.ProxyServer)platform).getScheduler());
+            }
+        }
+        logger.warning("Microbase.getScheduler called (platform: %s)".formatted(platformType));
+        return null;
     }
 
     public static<T> BasePlatform toBasePlatform(T pl) {
