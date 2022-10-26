@@ -15,6 +15,13 @@ public record Pair<A, B>(A a, B b) {
         return new Pair<>(a[0], a[1]);
     }
 
+    public static @NotNull Pair<String, String> from(String value) {
+        int dot = value.indexOf(".");
+        String first = value.substring(0, dot);
+        String second = value.substring(dot + 1);
+        return new Pair<>(first, second);
+    }
+
     @Override
     public String toString() {
         return "Pair{" +
