@@ -1,5 +1,6 @@
 package com.danifoldi.microbase;
 
+import net.kyori.adventure.text.Component;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Collection;
@@ -34,6 +35,42 @@ public interface BasePlatform {
     }
 
     void runConsoleCommand(String command);
+
+    default void broadcast(String message) {
+        getPlayers().forEach(basePlayer -> basePlayer.send(message));
+    }
+
+    default void broadcastExcept(String message, BasePlayer player) {
+        getPlayers().stream().filter(basePlayer -> basePlayer.equals(player)).forEach(basePlayer -> basePlayer.send(message));
+    }
+
+    default void broadcast(String message, String permission) {
+        getPlayers().stream().filter(basePlayer -> basePlayer.hasPermission(permission)).forEach(basePlayer -> basePlayer.send(message));
+    }
+
+    default void broadcast(Component message) {
+        getPlayers().forEach(basePlayer -> basePlayer.send(message));
+    }
+
+    default void broadcastExcept(Component message, BasePlayer player) {
+        getPlayers().stream().filter(basePlayer -> basePlayer.equals(player)).forEach(basePlayer -> basePlayer.send(message));
+    }
+
+    default void broadcast(Component message, String permission) {
+        getPlayers().stream().filter(basePlayer -> basePlayer.hasPermission(permission)).forEach(basePlayer -> basePlayer.send(message));
+    }
+
+    default void broadcast(BaseMessage message) {
+        getPlayers().forEach(basePlayer -> basePlayer.send(message));
+    }
+
+    default void broadcastExcept(BaseMessage message, BasePlayer player) {
+        getPlayers().stream().filter(basePlayer -> !basePlayer.equals(player)).forEach(basePlayer -> basePlayer.send(message));
+    }
+
+    default void broadcast(BaseMessage message, String permission) {
+        getPlayers().stream().filter(basePlayer -> basePlayer.hasPermission(permission)).forEach(basePlayer -> basePlayer.send(message));
+    }
 
     List<BasePlugin> getPlugins();
 
