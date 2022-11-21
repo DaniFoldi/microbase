@@ -15,14 +15,17 @@ import com.danifoldi.microbase.velocity.VelocityBaseScheduler;
 import com.danifoldi.microbase.velocity.VelocityPlatform;
 import com.danifoldi.microbase.waterfall.WaterfallBaseScheduler;
 import com.danifoldi.microbase.waterfall.WaterfallPlatform;
+import com.google.common.util.concurrent.ThreadFactoryBuilder;
+import org.bukkit.block.structure.Mirror;
 
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 import java.util.logging.Logger;
 
@@ -41,7 +44,8 @@ public class Microbase {
     private static Object platform;
     private static Object plugin;
     private static Path datafolder;
-    private static ExecutorService threadPool;
+
+    private static Map<String, ExecutorService> threadPools;
     private static Function<String, String> messageProvider;
 
     static {
@@ -51,29 +55,36 @@ public class Microbase {
         }
     }
 
+    @Deprecated
     public static void setup(Object platform, Object plugin, Path datafolder, ExecutorService threadPool, Function<String, String> messageProvider) {
+        setup(platform, plugin, datafolder, messageProvider);
+        threadPools.put("microbase", threadPool);
+    }
+
+    @Deprecated
+    public static void setup(Object platform, Object plugin, Path datafolder, ExecutorService threadPool, String messageFile) {
+        setup(platform, plugin, datafolder, messageFile);
+        threadPools.put("microbase", threadPool);
+    }
+
+    public static void setup(Object platform, Object plugin, Path datafolder, Function<String, String> messageProvider) {
         Microbase.platform = platform;
         Microbase.plugin = plugin;
         Microbase.datafolder = datafolder;
-        Microbase.threadPool = threadPool;
         Microbase.messageProvider = messageProvider;
 
         logger = Logger.getLogger(Microbase.getPlugin().name() + "(Mb)");
     }
 
-    public static void setup(Object platform, Object plugin, Path datafolder, ExecutorService threadPool, String messageFile) {
-        Microbase.platform = platform;
-        Microbase.plugin = plugin;
-        Microbase.datafolder = datafolder;
-        Microbase.threadPool = threadPool;
+    public static void setup(Object platform, Object plugin, Path datafolder, String messageFile) {
+        Map<String, String> builtProvider;
         try {
             Microbase.messageProvider = new ConcurrentHashMap<>(DmlUtil.flattenStrings(FileUtil.ensureDmlFile(datafolder, messageFile)))::get;
         } catch (IOException | DmlParseException e) {
             logger.warning("Could not load message file");
             Microbase.messageProvider = key -> "";
         }
-
-        logger = Logger.getLogger(Microbase.getPlugin().name() + "(Mb)");
+        setup(platform, plugin, datafolder, messageProvider);
     }
 
     public static BasePlatform getPlatform() {
@@ -88,25 +99,50 @@ public class Microbase {
         return datafolder;
     }
 
+    @Deprecated
     public static ExecutorService getThreadPool() {
-        return threadPool;
+        return getThreadPool("microbase");
+    }
+
+    public static ExecutorService getThreadPool(String namespace) {
+        if (threadPools.containsKey(namespace)) {
+            return threadPools.get(namespace);
+        }
+
+        threadPools.put(namespace, Executors.newCachedThreadPool(new ThreadFactoryBuilder()
+                .setNameFormat(Microbase.getPlugin().name() + " Thread Pool - %1$d")
+                .build()));
+        return threadPools.get(namespace);
+    }
+
+    public static Map<String, ExecutorService> getThreadPools() {
+        return Map.copyOf(threadPools);
+    }
+
+    public static boolean shutdownThreadPool(String namespace, long timeoutMs, boolean force) {
+        if (!threadPools.containsKey(namespace)) {
+            Microbase.logger.warning("ThreadPool %s not found".formatted(namespace));
+            return true;
+        }
+        ExecutorService threadPool = threadPools.get(namespace);
+        if (threadPool.isShutdown()) {
+            return true;
+        }
+        try {
+            boolean terminated = threadPool.awaitTermination(timeoutMs, TimeUnit.MILLISECONDS);
+            if (!force) {
+                return terminated;
+            } else {
+                threadPool.shutdownNow();
+                return true;
+            }
+        } catch (InterruptedException e) {
+            return false;
+        }
     }
 
     public static String provideMessage(String key) {
         return messageProvider.apply(key);
-    }
-
-    public static<T> T addCommand(List<String> aliases, T command) {
-        aliases.forEach(a -> commandCache.put(a, command));
-        return command;
-    }
-
-    public static Object removeCommand(String name) {
-        return commandCache.remove(name);
-    }
-
-    public static Set<String> registeredCommands() {
-        return commandCache.keySet();
     }
 
     public static BaseMessage baseMessage() {
@@ -135,7 +171,7 @@ public class Microbase {
         return null;
     }
 
-    public static <T> BasePlatform toBasePlatform(T pl) {
+    public static<T> BasePlatform toBasePlatform(T pl) {
         switch (platformType) {
             case BUNGEECORD -> {
                 if (pl instanceof net.md_5.bungee.api.ProxyServer cPlatform) {

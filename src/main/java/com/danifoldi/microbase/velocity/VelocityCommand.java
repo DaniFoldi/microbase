@@ -64,7 +64,7 @@ public class VelocityCommand implements RawCommand {
 
     @Override
     public CompletableFuture<List<String>> suggestAsync(Invocation invocation) {
-        return CompletableFuture.supplyAsync(() -> suggest.apply(Microbase.toBaseSender(invocation.source()), buildArguments(invocation.arguments())).stream().toList(), Microbase.getThreadPool());
+        return CompletableFuture.supplyAsync(() -> suggest.apply(Microbase.toBaseSender(invocation.source()), buildArguments(invocation.arguments())).stream().toList(), Microbase.getThreadPool("microbase"));
     }
 
     @Override
