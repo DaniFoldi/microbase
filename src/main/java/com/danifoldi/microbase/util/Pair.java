@@ -16,7 +16,11 @@ public record Pair<A, B>(A a, B b) {
     }
 
     public static @NotNull Pair<String, String> from(String value) {
-        int dot = value.indexOf(".");
+        return from(value, '.');
+    }
+
+    public static @NotNull Pair<String, String> from(String value, char separator) {
+        int dot = value.indexOf(separator);
         String first = value.substring(0, dot);
         String second = value.substring(dot + 1);
         return new Pair<>(first, second);
