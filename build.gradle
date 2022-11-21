@@ -6,8 +6,9 @@ plugins {
 group 'com.danifoldi'
 version '0.4.0'
 
-sourceCompatibility = JavaVersion.VERSION_17
-targetCompatibility = JavaVersion.VERSION_17
+java {
+    toolchain.languageVersion = JavaLanguageVersion.of(17)
+}
 
 repositories {
     mavenCentral()
@@ -53,7 +54,7 @@ publishing {
                     fromResolutionOf('runtimeClasspath')
                 }
                 usage('java-runtime') {
-                    fromResolutionResult()
+                    fromResolutionResult(null)
                 }
             }
             pom {
@@ -63,7 +64,7 @@ publishing {
             }
 
             pom.withXml {
-                asNode().dependencies.'*'.findAll() {
+                asNode(null).dependencies.'*'.findAll() {
                     it.scope.text() == 'runtime' && project.configurations.default.allDependencies.find { dep ->
                         dep.name == it.artifactId.text()
                     }
