@@ -25,7 +25,6 @@ import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
 import java.util.function.Supplier;
 
-@SuppressWarnings("ClassCanBeRecord")
 public class PaperBasePlatform implements BasePlatform {
     private final Server server;
 

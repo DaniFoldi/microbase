@@ -7,7 +7,6 @@ import org.bukkit.entity.Player;
 
 import java.util.UUID;
 
-@SuppressWarnings("ClassCanBeRecord")
 public class PaperBaseSender implements BaseSender {
     private final CommandSender sender;
 

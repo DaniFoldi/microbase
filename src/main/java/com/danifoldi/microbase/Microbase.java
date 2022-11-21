@@ -16,7 +16,6 @@ import com.danifoldi.microbase.velocity.VelocityPlatform;
 import com.danifoldi.microbase.waterfall.WaterfallBaseScheduler;
 import com.danifoldi.microbase.waterfall.WaterfallPlatform;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
-import org.bukkit.block.structure.Mirror;
 
 import java.io.IOException;
 import java.nio.file.Path;

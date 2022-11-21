@@ -6,7 +6,6 @@ import com.velocitypowered.api.proxy.server.RegisteredServer;
 
 import java.util.Collection;
 
-@SuppressWarnings("ClassCanBeRecord")
 public class VelocityBaseServer implements BaseServer {
     private final RegisteredServer server;
 

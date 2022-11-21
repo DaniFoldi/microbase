@@ -20,7 +20,6 @@ import java.util.function.BiFunction;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
-@SuppressWarnings("ClassCanBeRecord")
 public class VelocityBasePlatform implements BasePlatform {
     private final ProxyServer server;
 

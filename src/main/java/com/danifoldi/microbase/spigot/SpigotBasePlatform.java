@@ -26,7 +26,6 @@ import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
 import java.util.function.Supplier;
 
-@SuppressWarnings("ClassCanBeRecord")
 public class SpigotBasePlatform implements BasePlatform {
     private final Server server;
     private final BukkitAudiences audience;

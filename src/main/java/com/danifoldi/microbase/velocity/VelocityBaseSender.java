@@ -7,7 +7,6 @@ import net.kyori.adventure.text.Component;
 
 import java.util.UUID;
 
-@SuppressWarnings("ClassCanBeRecord")
 public class VelocityBaseSender implements BaseSender {
     private final CommandSource sender;
 

@@ -24,7 +24,6 @@ import java.util.StringJoiner;
 import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
 
-@SuppressWarnings("ClassCanBeRecord")
 public class SpigotCommand implements CommandExecutor, TabCompleter {
     private final BiConsumer<BaseSender, String> dispatch;
     private final BiFunction<BaseSender, String, Collection<String>> suggest;

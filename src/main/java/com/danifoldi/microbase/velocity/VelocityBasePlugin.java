@@ -6,7 +6,6 @@ import com.velocitypowered.api.plugin.meta.PluginDependency;
 
 import java.util.List;
 
-@SuppressWarnings("ClassCanBeRecord")
 public class VelocityBasePlugin implements BasePlugin {
     private final PluginContainer plugin;
 

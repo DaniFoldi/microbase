@@ -6,7 +6,6 @@ import org.bukkit.Server;
 
 import java.util.Collection;
 
-@SuppressWarnings("ClassCanBeRecord")
 public class PaperBaseServer implements BaseServer {
     private final Server server;
 

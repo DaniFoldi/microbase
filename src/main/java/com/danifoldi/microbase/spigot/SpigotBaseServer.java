@@ -7,7 +7,6 @@ import org.bukkit.Server;
 
 import java.util.Collection;
 
-@SuppressWarnings("ClassCanBeRecord")
 public class SpigotBaseServer implements BaseServer {
     private final Server server;
     private final BukkitAudiences audience;

@@ -18,13 +18,16 @@ public class FileUtil {
 
         if (Files.notExists(dest)) {
             try (final @Nullable InputStream stream = FileUtil.class.getResourceAsStream("/" + fileName)) {
-                Files.copy(stream, dest);
+                if (stream != null) {
+                    Files.copy(stream, dest);
+                }
             }
         }
 
         return DmlParser.parse(dest);
     }
 
+    @SuppressWarnings("UnusedReturnValue")
     public static boolean ensureFolder(final @NotNull Path folder) throws IOException {
         if (Files.notExists(folder)) {
             Files.createDirectories(folder);

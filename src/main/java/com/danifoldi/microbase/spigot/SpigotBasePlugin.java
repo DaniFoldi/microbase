@@ -5,7 +5,6 @@ import org.bukkit.plugin.Plugin;
 
 import java.util.List;
 
-@SuppressWarnings("ClassCanBeRecord")
 public class SpigotBasePlugin implements BasePlugin {
     private final Plugin plugin;
 

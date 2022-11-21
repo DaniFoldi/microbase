@@ -5,6 +5,7 @@ import java.util.Map;
 
 public class MapUtil {
 
+    @SuppressWarnings("unchecked")
     public static<K, V> Map<K, V> make(Object... data) {
         Map<K, V> result = new HashMap<>();
         int i = 0;
