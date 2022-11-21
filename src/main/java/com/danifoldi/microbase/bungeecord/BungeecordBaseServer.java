@@ -7,7 +7,6 @@ import net.md_5.bungee.api.config.ServerInfo;
 
 import java.util.Collection;
 
-@SuppressWarnings("ClassCanBeRecord")
 public class BungeecordBaseServer implements BaseServer {
     private final ServerInfo server;
     private final BungeeAudiences audience;

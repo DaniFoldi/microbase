@@ -370,13 +370,15 @@ public class BaseMessage {
                     break;
                 case "text":
                     switch (mode) {
-                        case "text" -> text = switch (action.b()) {
+                        case "text" -> //noinspection DuplicatedCode
+                                text = switch (action.b()) {
                             case "raw" -> text.append(convertString(operation.value.a(), false, center));
                             case "colorized" -> text.append(convertString(operation.value.a(), true, center));
                             case "provide" -> text.append(convertString(Microbase.provideMessage(operation.value.a()), false, center));
                             default -> text;
                         };
-                        case "hover" -> hover = switch (action.b()) {
+                        case "hover" -> //noinspection DuplicatedCode
+                                hover = switch (action.b()) {
                             case "raw" -> hover.append(convertString(operation.value.a(), false, center));
                             case "colorized" -> hover.append(convertString(operation.value.a(), true, center));
                             case "provide" -> hover.append(convertString(Microbase.provideMessage(operation.value.a()), false, center));
@@ -405,7 +407,7 @@ public class BaseMessage {
     }
 
     public static class Operation {
-        String type;
+        final String type;
         Pair<String, String> value;
 
         Operation(String type, Pair<String, String> value) {

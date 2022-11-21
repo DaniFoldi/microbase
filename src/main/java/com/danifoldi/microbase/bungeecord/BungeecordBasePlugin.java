@@ -6,7 +6,6 @@ import net.md_5.bungee.api.plugin.Plugin;
 import java.util.Arrays;
 import java.util.List;
 
-@SuppressWarnings("ClassCanBeRecord")
 public class BungeecordBasePlugin implements BasePlugin {
     private final Plugin plugin;
 
