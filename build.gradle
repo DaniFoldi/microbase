@@ -54,7 +54,7 @@ publishing {
                     fromResolutionOf('runtimeClasspath')
                 }
                 usage('java-runtime') {
-                    fromResolutionResult(null)
+                    fromResolutionResult()
                 }
             }
             pom {
@@ -64,7 +64,7 @@ publishing {
             }
 
             pom.withXml {
-                asNode(null).dependencies.'*'.findAll() {
+                asNode().dependencies.'*'.findAll() {
                     it.scope.text() == 'runtime' && project.configurations.default.allDependencies.find { dep ->
                         dep.name == it.artifactId.text()
                     }
