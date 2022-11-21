@@ -5,6 +5,7 @@ import com.danifoldi.microbase.BasePlayer;
 import com.danifoldi.microbase.BasePlugin;
 import com.danifoldi.microbase.BaseSender;
 import com.danifoldi.microbase.BaseServer;
+import com.danifoldi.microbase.Microbase;
 import com.danifoldi.microbase.internal.CommandCache;
 import com.velocitypowered.api.proxy.Player;
 import com.velocitypowered.api.proxy.ProxyServer;
@@ -80,6 +81,28 @@ public class VelocityBasePlatform implements BasePlatform {
     @Override
     public void runConsoleCommand(String command) {
         server.getCommandManager().executeAsync(server.getConsoleCommandSource(), command);
+    }
+
+    @Override
+    public void registerEventHandler(Object listener) {
+        server.getEventManager().register(Microbase.getPlugin().raw(), listener);
+    }
+
+    @Override
+    public void unregisterEventHandler(Object listener) {
+        server.getEventManager().unregisterListener(Microbase.getPlugin().raw(), listener);
+    }
+
+    @Override
+    public void unregisterAllEventHandlers() {
+        server.getEventManager().unregisterListeners(Microbase.getPlugin().raw());
+    }
+
+    @Override
+    public boolean dispatchEvent(Object event) {
+        server.getEventManager().fireAndForget(event);
+        // TODO maybe use ResultedEvent<GenericResult> as return value
+        return false;
     }
 
     @Override

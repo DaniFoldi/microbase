@@ -7,13 +7,17 @@ import com.danifoldi.microbase.BaseSender;
 import com.danifoldi.microbase.BaseServer;
 import com.danifoldi.microbase.Microbase;
 import com.danifoldi.microbase.internal.CommandCache;
+import com.google.common.annotations.Beta;
 import org.bukkit.Bukkit;
 import org.bukkit.Server;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.entity.Player;
+import org.bukkit.event.Cancellable;
+import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.Plugin;
+import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Arrays;
@@ -107,6 +111,32 @@ public class PaperBasePlatform implements BasePlatform {
     @Override
     public void runConsoleCommand(String command) {
         server.dispatchCommand(server.getConsoleSender(), command);
+    }
+
+    @Beta
+    @Override
+    public void registerEventHandler(Object listener) {
+        Bukkit.getPluginManager().registerEvents((Listener)listener, (JavaPlugin)Microbase.getPlugin().raw());
+    }
+
+    @Beta
+    @Override
+    public void unregisterEventHandler(Object listener) {
+        HandlerList.unregisterAll((Listener)listener);
+    }
+
+    @Beta
+    @Override
+    public void unregisterAllEventHandlers() {
+        HandlerList.unregisterAll((JavaPlugin)Microbase.getPlugin().raw());
+    }
+
+    @Beta
+    @Override
+    public boolean dispatchEvent(Object event) {
+        Bukkit.getPluginManager().callEvent((Event)event);
+
+        return event instanceof Cancellable c && c.isCancelled();
     }
 
     @Override

@@ -7,11 +7,15 @@ import com.danifoldi.microbase.BaseSender;
 import com.danifoldi.microbase.BaseServer;
 import com.danifoldi.microbase.Microbase;
 import com.danifoldi.microbase.internal.CommandCache;
+import com.google.common.annotations.Beta;
 import net.kyori.adventure.platform.bungeecord.BungeeAudiences;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.config.ServerInfo;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
+import net.md_5.bungee.api.plugin.Cancellable;
 import net.md_5.bungee.api.plugin.Command;
+import net.md_5.bungee.api.plugin.Event;
+import net.md_5.bungee.api.plugin.Listener;
 import net.md_5.bungee.api.plugin.Plugin;
 import org.jetbrains.annotations.Nullable;
 
@@ -86,6 +90,32 @@ public class BungeecordBasePlatform implements BasePlatform {
     @Override
     public void runConsoleCommand(String command) {
         server.getPluginManager().dispatchCommand(server.getConsole(), command);
+    }
+
+    @Beta
+    @Override
+    public void registerEventHandler(Object listener) {
+        server.getPluginManager().registerListener((Plugin)Microbase.getPlugin().raw(), (Listener)listener);
+    }
+
+    @Beta
+    @Override
+    public void unregisterEventHandler(Object listener) {
+        server.getPluginManager().unregisterListener((Listener)listener);
+    }
+
+    @Beta
+    @Override
+    public void unregisterAllEventHandlers() {
+        server.getPluginManager().unregisterListeners((Plugin)Microbase.getPlugin().raw());
+    }
+
+    @Beta
+    @Override
+    public boolean dispatchEvent(Object event) {
+        server.getPluginManager().callEvent((Event)event);
+
+        return event instanceof Cancellable c && c.isCancelled();
     }
 
     @Override
