@@ -5,7 +5,7 @@ import com.danifoldi.microbase.BasePlayer;
 import com.danifoldi.microbase.BasePlugin;
 import com.danifoldi.microbase.BaseSender;
 import com.danifoldi.microbase.BaseServer;
-import com.danifoldi.microbase.Microbase;
+import com.danifoldi.microbase.internal.CommandCache;
 import com.velocitypowered.api.proxy.Player;
 import com.velocitypowered.api.proxy.ProxyServer;
 import org.jetbrains.annotations.Nullable;
@@ -64,17 +64,17 @@ public class VelocityBasePlatform implements BasePlatform {
 
     @Override
     public void registerCommand(List<String> commandAliases, BiConsumer<BaseSender, String> dispatch, BiFunction<BaseSender, String, Collection<String>> suggest) {
-        server.getCommandManager().register(commandAliases.stream().findFirst().orElseThrow(), Microbase.addCommand(commandAliases, new VelocityCommand(dispatch, suggest, commandAliases.stream().findFirst().orElseThrow())), commandAliases.stream().skip(1).toArray(String[]::new));
+        server.getCommandManager().register(commandAliases.stream().findFirst().orElseThrow(), CommandCache.addCommand(commandAliases, new VelocityCommand(dispatch, suggest, commandAliases.stream().findFirst().orElseThrow())), commandAliases.stream().skip(1).toArray(String[]::new));
     }
 
     @Override
     public void registerCommand(List<String> commandAliases, String permission, BiConsumer<BaseSender, String> dispatch, BiFunction<BaseSender, String, Collection<String>> suggest) {
-        server.getCommandManager().register(commandAliases.stream().findFirst().orElseThrow(), Microbase.addCommand(commandAliases, new VelocityCommand(permission, dispatch, suggest, commandAliases.stream().findFirst().orElseThrow())), commandAliases.stream().skip(1).toArray(String[]::new));
+        server.getCommandManager().register(commandAliases.stream().findFirst().orElseThrow(), CommandCache.addCommand(commandAliases, new VelocityCommand(permission, dispatch, suggest, commandAliases.stream().findFirst().orElseThrow())), commandAliases.stream().skip(1).toArray(String[]::new));
     }
 
     @Override
     public void unregisterCommand(String command) {
-        Microbase.removeCommand(command);
+        CommandCache.removeCommand(command);
         server.getCommandManager().unregister(command);
     }
 

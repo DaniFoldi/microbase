@@ -6,6 +6,7 @@ import com.danifoldi.microbase.BasePlugin;
 import com.danifoldi.microbase.BaseSender;
 import com.danifoldi.microbase.BaseServer;
 import com.danifoldi.microbase.Microbase;
+import com.danifoldi.microbase.internal.CommandCache;
 import net.kyori.adventure.platform.bungeecord.BungeeAudiences;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.config.ServerInfo;
@@ -70,7 +71,7 @@ public class BungeecordBasePlatform implements BasePlatform {
 
     @Override
     public void registerCommand(List<String> commandAliases, BiConsumer<BaseSender, String> dispatch, BiFunction<BaseSender, String, Collection<String>> suggest) {
-        server.getPluginManager().registerCommand((Plugin) Microbase.getPlugin().raw(), Microbase.addCommand(commandAliases, new BungeecordCommand(commandAliases, dispatch, suggest)));
+        server.getPluginManager().registerCommand((Plugin) Microbase.getPlugin().raw(), CommandCache.addCommand(commandAliases, new BungeecordCommand(commandAliases, dispatch, suggest)));
     }
 
     @Override
@@ -80,7 +81,7 @@ public class BungeecordBasePlatform implements BasePlatform {
 
     @Override
     public void unregisterCommand(String command) {
-        server.getPluginManager().unregisterCommand((Command)Microbase.removeCommand(command));
+        server.getPluginManager().unregisterCommand((Command) CommandCache.removeCommand(command));
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.danifoldi.microbase;
 
+import com.danifoldi.microbase.internal.CommandCache;
 import net.kyori.adventure.text.Component;
 import org.jetbrains.annotations.Nullable;
 
@@ -31,7 +32,7 @@ public interface BasePlatform {
     void unregisterCommand(String command);
 
     default void unregisterAllCommands() {
-        Microbase.registeredCommands().forEach(this::unregisterCommand);
+        CommandCache.registeredCommands().forEach(this::unregisterCommand);
     }
 
     void runConsoleCommand(String command);

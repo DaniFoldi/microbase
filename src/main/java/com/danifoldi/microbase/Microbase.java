@@ -37,7 +37,6 @@ public class Microbase {
             Pair.of("io.papermc.paper.event.block.TargetHitEvent", MicrobasePlatformType.PAPER),
             Pair.of("org.spigotmc.event.player.PlayerSpawnLocationEvent", MicrobasePlatformType.SPIGOT)
     );
-    private static final Map<String, Object> commandCache = new ConcurrentHashMap<>();
     public static Logger logger = Logger.getLogger("(Microbase)");
     private static Object platform;
     private static Object plugin;
@@ -136,7 +135,7 @@ public class Microbase {
         return null;
     }
 
-    public static<T> BasePlatform toBasePlatform(T pl) {
+    public static <T> BasePlatform toBasePlatform(T pl) {
         switch (platformType) {
             case BUNGEECORD -> {
                 if (pl instanceof net.md_5.bungee.api.ProxyServer cPlatform) {

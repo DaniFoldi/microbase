@@ -6,6 +6,7 @@ import com.danifoldi.microbase.BasePlugin;
 import com.danifoldi.microbase.BaseSender;
 import com.danifoldi.microbase.BaseServer;
 import com.danifoldi.microbase.Microbase;
+import com.danifoldi.microbase.internal.CommandCache;
 import org.bukkit.Bukkit;
 import org.bukkit.Server;
 import org.bukkit.command.PluginCommand;
@@ -72,7 +73,7 @@ public class PaperBasePlatform implements BasePlatform {
         try {
             //noinspection JavaReflectionInvocation
             PluginCommand command = PaperCommand.PLUGIN_COMMAND_CONSTRUCTOR.newInstance(commandAliases.stream().findFirst().orElseThrow(), Microbase.getPlugin().raw());
-            command.setExecutor(Microbase.addCommand(commandAliases, new PaperCommand(dispatch, suggest)));
+            command.setExecutor(CommandCache.addCommand(commandAliases, new PaperCommand(dispatch, suggest)));
             command.setAliases(commandAliases.stream().skip(1).toList());
             commandAliases.forEach(a -> PaperCommand.KNOWN_COMMANDS.put(a, command));
             Bukkit.getPluginManager().registerEvents((Listener)command.getExecutor(), (Plugin)Microbase.getPlugin().raw());
@@ -87,7 +88,7 @@ public class PaperBasePlatform implements BasePlatform {
         try {
             //noinspection JavaReflectionInvocation
             PluginCommand command = PaperCommand.PLUGIN_COMMAND_CONSTRUCTOR.newInstance(commandAliases.stream().findFirst().orElseThrow(), Microbase.getPlugin().raw());
-            command.setExecutor(Microbase.addCommand(commandAliases, new PaperCommand(dispatch, suggest)));
+            command.setExecutor(CommandCache.addCommand(commandAliases, new PaperCommand(dispatch, suggest)));
             command.setPermission(permission);
             command.setAliases(commandAliases.stream().skip(1).toList());
             commandAliases.forEach(a -> PaperCommand.KNOWN_COMMANDS.put(a, command));
@@ -101,7 +102,7 @@ public class PaperBasePlatform implements BasePlatform {
     @Override
     public void unregisterCommand(String command) {
         PaperCommand.KNOWN_COMMANDS.remove(command);
-        HandlerList.unregisterAll((Listener)Microbase.removeCommand(command));
+        HandlerList.unregisterAll((Listener)CommandCache.removeCommand(command));
     }
 
     @Override

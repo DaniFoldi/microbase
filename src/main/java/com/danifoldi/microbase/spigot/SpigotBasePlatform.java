@@ -6,6 +6,7 @@ import com.danifoldi.microbase.BasePlugin;
 import com.danifoldi.microbase.BaseSender;
 import com.danifoldi.microbase.BaseServer;
 import com.danifoldi.microbase.Microbase;
+import com.danifoldi.microbase.internal.CommandCache;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import org.bukkit.Bukkit;
 import org.bukkit.Server;
@@ -75,7 +76,7 @@ public class SpigotBasePlatform implements BasePlatform {
         try {
             //noinspection JavaReflectionInvocation
             PluginCommand command = SpigotCommand.PLUGIN_COMMAND_CONSTRUCTOR.newInstance(commandAliases.stream().findFirst().orElseThrow(), Microbase.getPlugin().raw());
-            command.setExecutor(Microbase.addCommand(commandAliases, new SpigotCommand(dispatch, suggest)));
+            command.setExecutor(CommandCache.addCommand(commandAliases, new SpigotCommand(dispatch, suggest)));
             command.setAliases(commandAliases.stream().skip(1).toList());
             commandAliases.forEach(a -> SpigotCommand.KNOWN_COMMANDS.put(a, command));
             Bukkit.getPluginManager().registerEvents((Listener)command.getExecutor(), (Plugin)Microbase.getPlugin().raw());
@@ -90,7 +91,7 @@ public class SpigotBasePlatform implements BasePlatform {
         try {
             //noinspection JavaReflectionInvocation
             PluginCommand command = SpigotCommand.PLUGIN_COMMAND_CONSTRUCTOR.newInstance(commandAliases.stream().findFirst().orElseThrow(), Microbase.getPlugin().raw());
-            command.setExecutor(Microbase.addCommand(commandAliases, new SpigotCommand(dispatch, suggest)));
+            command.setExecutor(CommandCache.addCommand(commandAliases, new SpigotCommand(dispatch, suggest)));
             command.setPermission(permission);
             command.setAliases(commandAliases.stream().skip(1).toList());
             commandAliases.forEach(a -> SpigotCommand.KNOWN_COMMANDS.put(a, command));
@@ -104,7 +105,7 @@ public class SpigotBasePlatform implements BasePlatform {
     @Override
     public void unregisterCommand(String command) {
         SpigotCommand.KNOWN_COMMANDS.remove(command);
-        HandlerList.unregisterAll((Listener)Microbase.removeCommand(command));
+        HandlerList.unregisterAll((Listener)CommandCache.removeCommand(command));
     }
 
     @Override
