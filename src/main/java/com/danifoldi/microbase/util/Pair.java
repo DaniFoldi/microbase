@@ -26,6 +26,14 @@ public record Pair<A, B>(A a, B b) {
         return new Pair<>(first, second);
     }
 
+    public A getFirst() {
+        return a;
+    }
+
+    public B getSecond() {
+        return b;
+    }
+
     @Override
     public String toString() {
         return "Pair{" +
