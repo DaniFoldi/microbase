@@ -31,9 +31,21 @@ public interface BasePlayer extends BaseSender {
 
     BaseServer connectedTo();
 
-    void title(String message, int fadeIn, int stay, int fadeOut);
+    default void title(String message, int fadeIn, int stay, int fadeOut) {
+        title(Microbase.baseMessage().colorizedText(message), fadeIn, stay, fadeOut);
+    }
 
-    void subtitle(String message, int fadeIn, int stay, int fadeOut);
+    void title(BaseMessage message, int fadeIn, int stay, int fadeOut);
+
+    default void subtitle(String message, int fadeIn, int stay, int fadeOut) {
+        subtitle(Microbase.baseMessage().colorizedText(message), fadeIn, stay, fadeOut);
+    }
+
+    void subtitle(BaseMessage message, int fadeIn, int stay, int fadeOut);
+
+    void kick(BaseMessage message);
+
+    void bossbar(BaseMessage message, int time, float startFill, float endFill, String color, String style);
 
     Object raw();
 }
