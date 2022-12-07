@@ -92,25 +92,21 @@ public class BungeecordBasePlatform implements BasePlatform {
         server.getPluginManager().dispatchCommand(server.getConsole(), command);
     }
 
-    @Beta
     @Override
     public void registerEventHandler(Object listener) {
         server.getPluginManager().registerListener((Plugin)Microbase.getPlugin().raw(), (Listener)listener);
     }
 
-    @Beta
     @Override
     public void unregisterEventHandler(Object listener) {
         server.getPluginManager().unregisterListener((Listener)listener);
     }
 
-    @Beta
     @Override
     public void unregisterAllEventHandlers() {
         server.getPluginManager().unregisterListeners((Plugin)Microbase.getPlugin().raw());
     }
 
-    @Beta
     @Override
     public boolean dispatchEvent(Object event) {
         server.getPluginManager().callEvent((Event)event);

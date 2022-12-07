@@ -38,16 +38,12 @@ public interface BasePlatform {
 
     void runConsoleCommand(String command);
 
-    @Beta
     void registerEventHandler(Object listener);
 
-    @Beta
     void unregisterEventHandler(Object listener);
 
-    @Beta
     void unregisterAllEventHandlers();
 
-    @Beta
     boolean dispatchEvent(Object event);
 
     default void broadcast(String message) {

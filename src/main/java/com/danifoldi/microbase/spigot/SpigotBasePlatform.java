@@ -116,25 +116,21 @@ public class SpigotBasePlatform implements BasePlatform {
         server.dispatchCommand(server.getConsoleSender(), command);
     }
 
-    @Beta
     @Override
     public void registerEventHandler(Object listener) {
         Bukkit.getPluginManager().registerEvents((Listener)listener, (JavaPlugin)Microbase.getPlugin().raw());
     }
 
-    @Beta
     @Override
     public void unregisterEventHandler(Object listener) {
         HandlerList.unregisterAll((Listener)listener);
     }
 
-    @Beta
     @Override
     public void unregisterAllEventHandlers() {
         HandlerList.unregisterAll((JavaPlugin)Microbase.getPlugin().raw());
     }
 
-    @Beta
     @Override
     public boolean dispatchEvent(Object event) {
         Bukkit.getPluginManager().callEvent((Event)event);
