@@ -33,11 +33,6 @@ public class SpigotBasePlayer extends SpigotBaseSender implements BasePlayer {
     }
 
     @Override
-    public boolean vanished() {
-        return PremiumVanishDepend.vanished(player.getUniqueId());
-    }
-
-    @Override
     public int protocol() {
         return ViaVersionDepend.getProtocol(player.getUniqueId());
     }

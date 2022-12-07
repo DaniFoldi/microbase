@@ -30,11 +30,6 @@ public class VelocityBasePlayer extends VelocityBaseSender implements BasePlayer
     }
 
     @Override
-    public boolean vanished() {
-        return PremiumVanishDepend.vanished(player.getUniqueId());
-    }
-
-    @Override
     public int protocol() {
         return player.getProtocolVersion().getProtocol();
     }

@@ -32,11 +32,6 @@ public class WaterfallBasePlayer extends WaterfallBaseSender implements BasePlay
     }
 
     @Override
-    public boolean vanished() {
-        return PremiumVanishDepend.vanished(player.getUniqueId());
-    }
-
-    @Override
     public int protocol() {
         return player.getPendingConnection().getVersion();
     }

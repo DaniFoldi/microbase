@@ -1,11 +1,24 @@
 package com.danifoldi.microbase;
 
+import com.danifoldi.microbase.depend.PremiumVanishDepend;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 
+import java.util.List;
+
 @SuppressWarnings("unused")
 public interface BasePlayer extends BaseSender {
-    boolean vanished();
+    default boolean vanished() {
+        return PremiumVanishDepend.vanished(uniqueId());
+    }
+
+    default boolean canSee(BasePlayer player) {
+        return PremiumVanishDepend.isVisibleTo(player.uniqueId(), uniqueId());
+    }
+
+    default List<BasePlayer> visiblePlayers() {
+        return Microbase.getPlatform().getPlayers().stream().filter(p -> PremiumVanishDepend.isVisibleTo(p.uniqueId(), uniqueId())).toList();
+    }
 
     int protocol();
 
@@ -16,7 +29,7 @@ public interface BasePlayer extends BaseSender {
     void run(String command);
 
     default void actionbar(String message) {
-        actionbar(LegacyComponentSerializer.legacyAmpersand().deserialize(message));
+        actionbar(Microbase.baseMessage().colorizedText(message));
     }
 
     default void actionbar(BaseMessage message) {

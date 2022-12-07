@@ -2,7 +2,9 @@ package com.danifoldi.microbase;
 
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
+import org.bukkit.block.structure.Mirror;
 
+import java.util.List;
 import java.util.UUID;
 
 @SuppressWarnings("unused")
@@ -11,6 +13,18 @@ public interface BaseSender {
 
     default boolean isPlayer() {
         return this instanceof BasePlayer;
+    }
+
+    default boolean vanished() {
+        return false;
+    }
+
+    default boolean canSee(BasePlayer player) {
+        return true;
+    }
+
+    default List<BasePlayer> visiblePlayers() {
+        return Microbase.getPlatform().getPlayers();
     }
 
     default void send(String message) {

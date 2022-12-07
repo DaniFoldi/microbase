@@ -29,11 +29,6 @@ public class PaperBasePlayer extends PaperBaseSender implements BasePlayer {
     }
 
     @Override
-    public boolean vanished() {
-        return PremiumVanishDepend.vanished(player.getUniqueId());
-    }
-
-    @Override
     public int protocol() {
         return ViaVersionDepend.getProtocol(player.getUniqueId());
     }
