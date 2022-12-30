@@ -326,6 +326,11 @@ public class BaseMessage {
         return this;
     }
 
+    public BaseMessage append(BaseMessage message) {
+        operations.addAll(message.operations);
+        return this;
+    }
+
     public Component convert() {
         Component result = Component.empty();
 
