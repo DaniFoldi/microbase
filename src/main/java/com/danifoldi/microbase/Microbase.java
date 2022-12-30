@@ -44,7 +44,7 @@ public class Microbase {
     private static Object plugin;
     private static Path datafolder;
 
-    private static Map<String, ExecutorService> threadPools;
+    private static Map<String, ExecutorService> threadPools = new ConcurrentHashMap<>();
     private static Function<String, String> messageProvider;
 
     static {
